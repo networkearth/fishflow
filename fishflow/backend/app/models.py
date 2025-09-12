@@ -36,3 +36,18 @@ class ScenarioSummary(BaseModel):
 
 class ScenariosResponse(BaseModel):
     scenarios: List[ScenarioSummary]
+
+
+class GeoJSONPolygon(BaseModel):
+    type: str = "Polygon"
+    coordinates: List[List[List[float]]]
+
+
+class GridCell(BaseModel):
+    cell_id: int
+    geometry: GeoJSONPolygon
+
+
+class GridGeometries(BaseModel):
+    scenario_id: str
+    geometries: List[GridCell]

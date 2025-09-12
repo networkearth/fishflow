@@ -6,7 +6,7 @@
   "description": "Daily movement patterns for Chinook salmon in the Gulf of Alaska",
   "dates": ["2024-01-15", "2024-02-15", "2024-03-15"],
   "maximum_window_size": 14,
-  "grid_size": 233,
+  "grid_size": 223,
   "r_values": [0.05, 0.1],
   "map_center": [58.5, -152.0],
   "map_zoom": 6

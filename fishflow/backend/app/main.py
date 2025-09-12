@@ -1,9 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.models import (
-    ScenariosResponse,
-)
+from app.models import ScenariosResponse, GridGeometries
 from app.data_loader import data_loader
 
 app = FastAPI(
@@ -27,6 +25,17 @@ async def get_scenarios():
     """List all available scenarios"""
     scenarios = data_loader.get_scenarios()
     return ScenariosResponse(scenarios=scenarios)
+
+
+@app.get("/v1/scenario/{scenario_id}/geometries", response_model=GridGeometries)
+async def get_scenario_geometries(scenario_id: str):
+    """Get spatial grid geometries for scenario"""
+    geometries = data_loader.get_geometries(scenario_id)
+    if not geometries:
+        raise HTTPException(
+            status_code=404, detail="Scenario not found or geometries unavailable"
+        )
+    return geometries
 
 
 @app.get("/")
