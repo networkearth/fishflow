@@ -1,0 +1,340 @@
+openapi: 3.0.3
+info:
+  title: FishFlow API
+  description: API for exploring fish movement patterns and habitat quality analysis
+  version: 0.0.1
+  contact:
+    name: Marcel Gietzmann-Sanders
+
+servers:
+  - url: http://localhost:8000/v1
+    description: Development server
+
+paths:
+  /scenarios:
+    get:
+      summary: List all available scenarios
+      description: Returns a list of all movement analysis scenarios available in the system
+      operationId: getScenarios
+      responses:
+        '200':
+          description: List of scenarios retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenarios:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScenarioSummary'
+        '500':
+          description: Internal server error
+  /scenario/{scenario_id}/geometries:
+    get:
+      summary: Get spatial grid geometries for scenario
+      description: Returns GeoJSON polygons for all grid cells in the scenario
+      operationId: getScenarioGeometries
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          description: Unique identifier for the scenario
+          schema:
+            type: string
+            example: "chinook_gulf_of_alaska_2022"
+      responses:
+        '200':
+          description: Grid geometries retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GridGeometries'
+        '404':
+          description: Scenario not found
+        '500':
+          description: Internal server error
+
+  /scenario/{scenario_id}/habitat:
+    get:
+      summary: Get all habitat quality data for scenario
+      description: Returns precomputed habitat probability data for all dates and r_values in the scenario
+      operationId: getHabitatQuality
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          description: Unique identifier for the scenario
+          schema:
+            type: string
+            example: "chinook_gulf_of_alaska_2022"
+      responses:
+        '200':
+          description: All habitat quality data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllHabitatQuality'
+        '404':
+          description: Scenario not found
+        '500':
+          description: Internal server error
+
+  /scenario/{scenario_id}/matrices:
+    get:
+      summary: Get movement matrices for date range
+      description: Returns movement matrices for specified date range (inclusive)
+      operationId: getMovementMatrices
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          description: Unique identifier for the scenario
+          schema:
+            type: string
+            example: "chinook_gulf_of_alaska_2022"
+        - name: start_date
+          in: query
+          required: true
+          description: Start date for date range (ISO format, inclusive)
+          schema:
+            type: string
+            format: date
+            example: "2022-03-15"
+        - name: end_date
+          in: query
+          required: true
+          description: End date for date range (ISO format, inclusive)
+          schema:
+            type: string
+            format: date
+            example: "2022-03-16"
+      responses:
+        '200':
+          description: Movement matrices retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementMatrices'
+        '400':
+          description: Invalid date range or dates outside scenario bounds
+        '404':
+          description: Scenario not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    ScenarioSummary:
+      type: object
+      required:
+        - scenario_id
+        - name
+        - species
+        - region
+        - description
+        - dates
+        - maximum_window_size
+        - grid_size
+        - r_values
+        - map_center
+        - map_zoom
+      properties:
+        scenario_id:
+          type: string
+          description: Unique identifier for the scenario
+          example: "chinook_gulf_of_alaska_2022"
+        name:
+          type: string
+          description: Human-readable scenario name
+          example: "Chinook Salmon - Gulf of Alaska 2022"
+        species:
+          type: string
+          description: Target species
+          example: "Chinook salmon"
+        region:
+          type: string
+          description: Geographic region
+          example: "Gulf of Alaska"
+        description:
+          type: string
+          description: Brief scenario description
+          example: "Daily movement patterns for Chinook salmon in the Gulf of Alaska"
+        dates:
+          type: array
+          description: Dates with attractors and repulsers
+          items:
+            type: string
+            format: date
+          example: ["2022-01-01", "2022-04-01", "2022-07-01", "2022-10-01"]
+        maximum_window_size:
+          type: integer
+          description: Maximum forward and backward projection in days
+          example: 14
+        grid_size:
+          type: integer
+          description: Size of the spatial grid
+          example: 233
+        r_values:
+          type: array
+          description: Available stability tolerance values
+          items:
+            type: number
+            format: float
+          example: [0.025, 0.05, 0.075, 0.1, 0.125, 0.15]
+        map_center:
+          type: array
+          description: Center coordinates for map view [latitude, longitude]
+          items:
+            type: number
+            format: float
+          minItems: 2
+          maxItems: 2
+          example: [58.5, -152.0]
+        map_zoom:
+          type: integer
+          description: Recommended zoom level for this scenario
+          minimum: 1
+          maximum: 18
+          example: 6
+
+    GridGeometries:
+      type: object
+      required:
+        - scenario_id
+        - geometries
+      properties:
+        scenario_id:
+          type: string
+          example: "chinook_gulf_of_alaska_2022"
+        geometries:
+          type: array
+          items:
+            $ref: '#/components/schemas/GridCell'
+    
+    GridCell:
+      type: object
+      required:
+        - cell_id
+        - geometry
+      properties:
+        cell_id:
+          type: integer
+          description: Index of the grid cell (matches array positions in matrices/habitat data)
+          example: 0
+        geometry:
+          $ref: '#/components/schemas/GeoJSONPolygon'
+    
+    GeoJSONPolygon:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum: [Polygon]
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+              minItems: 2
+              maxItems: 2
+          example: [[[-125.0, 45.0], [-124.9, 45.0], [-124.9, 45.1], [-125.0, 45.1], [-125.0, 45.0]]]
+
+    AllHabitatQuality:
+      type: object
+      required:
+        - scenario_id
+        - habitat_data
+      properties:
+        scenario_id:
+          type: string
+          example: "chinook_gulf_of_alaska_2022"
+        habitat_data:
+          type: array
+          description: Habitat probability data for all date/r_value combinations
+          items:
+            type: object
+            required:
+              - date
+              - r
+              - probability
+            properties:
+              date:
+                type: string
+                format: date
+                description: Date for this habitat calculation
+                example: "2022-04-01"
+              r:
+                type: number
+                format: float
+                description: Stability tolerance value used
+                example: 0.05
+                minimum: 0.0
+                maximum: 1.0
+              probability:
+                type: array
+                description: Maximum entropy probability for each grid cell (same order as geometries)
+                items:
+                  type: number
+                  format: float
+                  minimum: 0.0
+                  maximum: 1.0
+                example: [0.8, 0.3, 0.9, 0.2, 0.7]
+        
+    MovementMatrices:
+      type: object
+      required:
+        - scenario_id
+        - start_date
+        - end_date
+        - matrices
+      properties:
+        scenario_id:
+          type: string
+          example: "chinook_gulf_of_alaska_2022"
+        start_date:
+          type: string
+          format: date
+          description: Start date of the requested range
+          example: "2022-03-15"
+        end_date:
+          type: string
+          format: date
+          description: End date of the requested range (inclusive)
+          example: "2022-03-16"
+        matrices:
+          type: array
+          description: Movement matrices for each date in the range, ordered chronologically
+          items:
+            type: object
+            required:
+              - date
+              - matrix
+            properties:
+              date:
+                type: string
+                format: date
+                description: Date for this movement matrix
+                example: "2022-03-15"
+              matrix:
+                type: array
+                description: Square movement matrix M(t) - matrix[i][j] is probability of moving from cell i to cell j
+                items:
+                  type: array
+                  items:
+                    type: number
+                    format: float
+                    minimum: 0.0
+                    maximum: 1.0
+                example: [[0.8, 0.1, 0.1], [0.05, 0.9, 0.05], [0.2, 0.2, 0.6]]
+          example:
+            - date: "2022-03-15"
+              matrix: [[0.8, 0.1, 0.1], [0.05, 0.9, 0.05], [0.2, 0.2, 0.6]]
+            - date: "2022-03-16"
+              matrix: [[0.7, 0.2, 0.1], [0.1, 0.8, 0.1], [0.3, 0.1, 0.6]]
