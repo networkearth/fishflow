@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union, Any
 from pydantic import BaseModel
 from datetime import date
 
@@ -62,3 +62,15 @@ class HabitatDataItem(BaseModel):
 class AllHabitatQuality(BaseModel):
     scenario_id: str
     habitat_data: List[HabitatDataItem]
+
+
+class MovementMatrix(BaseModel):
+    date: date
+    matrix: List[List[float]]
+
+
+class MovementMatrices(BaseModel):
+    scenario_id: str
+    start_date: date
+    end_date: date
+    matrices: List[MovementMatrix]

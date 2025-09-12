@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, date, timedelta
+import h5py
 from app.models import (
     ScenarioSummary,
     GridGeometries,
@@ -9,6 +10,8 @@ from app.models import (
     GridCell,
     HabitatDataItem,
     AllHabitatQuality,
+    MovementMatrix,
+    MovementMatrices,
 )
 
 
@@ -160,6 +163,60 @@ class DataLoader:
 
         except (json.JSONDecodeError, KeyError, ValueError) as e:
             print(f"Error loading habitat data for {scenario_id}: {e}")
+            return None
+
+    def get_movement_matrices(
+        self, scenario_id: str, start_date: date, end_date: date
+    ) -> Optional[MovementMatrices]:
+        """Load movement matrices for a date range"""
+        scenario = self.get_scenario_by_id(scenario_id)
+        if not scenario:
+            return None
+
+        matrices_file = self.data_dir / scenario_id / "matrices.hdf5"
+        if not matrices_file.exists():
+            print(f"Matrices file not found: {matrices_file}")
+            return None
+
+        try:
+            with h5py.File(matrices_file, "r") as f:
+                matrices = []
+                current_date = start_date
+
+                while current_date <= end_date:
+                    date_str = current_date.strftime("%Y-%m-%d")
+
+                    if date_str in f:
+                        try:
+                            # Keep as numpy array - let FastAPI handle JSON conversion
+                            matrix_data = f[date_str][:, :].tolist()
+                            matrices.append(
+                                MovementMatrix(date=current_date, matrix=matrix_data)
+                            )
+                        except Exception as e:
+                            print(
+                                f"Error reading matrix for {date_str} in {scenario_id}: {e}"
+                            )
+                    else:
+                        print(f"No matrix found for date {date_str} in {scenario_id}")
+
+                    current_date += timedelta(days=1)
+
+                if not matrices:
+                    print(
+                        f"No matrices found for date range {start_date} to {end_date} in {scenario_id}"
+                    )
+                    return None
+
+                return MovementMatrices(
+                    scenario_id=scenario_id,
+                    start_date=start_date,
+                    end_date=end_date,
+                    matrices=matrices,
+                )
+
+        except Exception as e:
+            print(f"Error loading matrices file for {scenario_id}: {e}")
             return None
 
 
