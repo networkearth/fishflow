@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.models import ScenariosResponse, GridGeometries
+from app.models import ScenariosResponse, GridGeometries, AllHabitatQuality
 from app.data_loader import data_loader
 
 app = FastAPI(
@@ -36,6 +36,17 @@ async def get_scenario_geometries(scenario_id: str):
             status_code=404, detail="Scenario not found or geometries unavailable"
         )
     return geometries
+
+
+@app.get("/v1/scenario/{scenario_id}/habitat", response_model=AllHabitatQuality)
+async def get_habitat_quality(scenario_id: str):
+    """Get all habitat quality data for scenario"""
+    habitat_data = data_loader.get_habitat_quality(scenario_id)
+    if not habitat_data:
+        raise HTTPException(
+            status_code=404, detail="Scenario not found or habitat data unavailable"
+        )
+    return habitat_data
 
 
 @app.get("/")

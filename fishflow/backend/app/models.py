@@ -51,3 +51,14 @@ class GridCell(BaseModel):
 class GridGeometries(BaseModel):
     scenario_id: str
     geometries: List[GridCell]
+
+
+class HabitatDataItem(BaseModel):
+    date: date
+    r: float
+    probability: List[float]
+
+
+class AllHabitatQuality(BaseModel):
+    scenario_id: str
+    habitat_data: List[HabitatDataItem]

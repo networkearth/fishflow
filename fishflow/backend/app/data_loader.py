@@ -2,7 +2,14 @@ import json
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime
-from app.models import ScenarioSummary, GridGeometries, GeoJSONPolygon, GridCell
+from app.models import (
+    ScenarioSummary,
+    GridGeometries,
+    GeoJSONPolygon,
+    GridCell,
+    HabitatDataItem,
+    AllHabitatQuality,
+)
 
 
 class DataLoader:
@@ -120,6 +127,39 @@ class DataLoader:
 
         except Exception as e:
             print(f"Unexpected error processing geometries for {scenario_id}: {e}")
+            return None
+
+    def get_habitat_quality(self, scenario_id: str) -> Optional[AllHabitatQuality]:
+        """Load all habitat quality data for a scenario"""
+        scenario = self.get_scenario_by_id(scenario_id)
+        if not scenario:
+            return None
+
+        habitat_file = self.data_dir / scenario_id / "habitat.json"
+        if not habitat_file.exists():
+            print(f"Habitat file not found: {habitat_file}")
+            return None
+
+        try:
+            with open(habitat_file, "r") as f:
+                habitat_json = json.load(f)
+
+            # Validate structure and convert date strings to date objects
+            habitat_data = []
+            for item in habitat_json:
+                item_date = datetime.strptime(item["date"], "%Y-%m-%d").date()
+                habitat_data.append(
+                    HabitatDataItem(
+                        date=item_date,
+                        r=float(item["r"]),
+                        probability=item["probability"],
+                    )
+                )
+
+            return AllHabitatQuality(scenario_id=scenario_id, habitat_data=habitat_data)
+
+        except (json.JSONDecodeError, KeyError, ValueError) as e:
+            print(f"Error loading habitat data for {scenario_id}: {e}")
             return None
 
 
