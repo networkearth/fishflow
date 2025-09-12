@@ -1,0 +1,13 @@
+{
+  "scenario_id": "chinook_gulf_of_alaska_2022",
+  "name": "Chinook Salmon - Gulf of Alaska 2022",
+  "species": "Chinook salmon",
+  "region": "Gulf of Alaska",
+  "description": "Daily movement patterns for Chinook salmon in the Gulf of Alaska",
+  "dates": ["2024-01-15", "2024-02-15", "2024-03-15"],
+  "maximum_window_size": 14,
+  "grid_size": 233,
+  "r_values": [0.05, 0.1],
+  "map_center": [58.5, -152.0],
+  "map_zoom": 6
+}
