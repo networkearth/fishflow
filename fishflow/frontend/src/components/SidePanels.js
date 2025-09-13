@@ -2,54 +2,154 @@ import { useState } from 'react';
 import MovementPanel from './MovementPanel';
 import './SidePanels.css';
 
-// Placeholder calculation functions - replace with real matrix math later
 const calculateBasinAnalysis = ({ movementMatrices, selectedCells, currentDate, timeWindow }) => {
-  // Mock: cells closer to selected cells have higher "feeding" values
-  const result = {};
+  // Get the required date sequence for backward projection
+  const dates = [];
+  const startDate = new Date(currentDate);
   
-  // Generate some mock values for demonstration
-  for (let cellId = 0; cellId < 1000; cellId++) {
-    if (selectedCells.includes(cellId)) {
-      result[cellId] = 0; // Selected cells don't feed into themselves for basin analysis
+  for (let i = 1; i <= timeWindow; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    
+    if (!movementMatrices[dateStr]) {
+      console.warn(`Missing matrix for date ${dateStr}`);
+      return {};
+    }
+    dates.push(dateStr);
+  }
+  
+  // Get matrix dimensions
+  const firstMatrix = movementMatrices[dates[0]];
+  const n = firstMatrix.length;
+  
+  // Create target vector x with 1s for selected cells, 0s elsewhere
+  const x = new Array(n).fill(0);
+  selectedCells.forEach(cellId => {
+    if (cellId < n) {
+      x[cellId] = 1;
+    }
+  });
+  
+  // Compute composite matrix B = M(t-1) * M(t-2) * ... * M(t-w)
+  let B = null;
+  
+  for (const dateStr of dates) {
+    const M = movementMatrices[dateStr];
+    
+    if (B === null) {
+      // Initialize B with first matrix
+      B = M.map(row => [...row]);
     } else {
-      // Mock calculation based on distance from selected cells
-      const mockValue = Math.random() * 0.5 * (timeWindow / 10); // Scale with time window
-      result[cellId] = mockValue;
+      // Multiply B = B * M
+      const newB = Array(n).fill(null).map(() => Array(n).fill(0));
+      
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          for (let k = 0; k < n; k++) {
+            newB[i][j] += B[i][k] * M[k][j];
+          }
+        }
+      }
+      
+      B = newB;
     }
   }
   
-  return result;
+  // For each cell, compute dot product of its column in B with target vector x
+  const analysisResult = {};
+  
+  for (let j = 0; j < n; j++) {
+    let dotProduct = 0;
+    for (let i = 0; i < n; i++) {
+      dotProduct += B[i][j] * x[i];
+    }
+    analysisResult[j] = dotProduct;
+  }
+  
+  return analysisResult;
 };
 
 const calculateProjectionAnalysis = ({ movementMatrices, selectedCells, currentDate, timeWindow }) => {
-  // Mock: density spreads outward from selected cells
-  const result = {};
+  // Get the required date sequence for forward projection
+  const dates = [];
+  const startDate = new Date(currentDate);
   
-  // Generate some mock values for demonstration
-  for (let cellId = 0; cellId < 1000; cellId++) {
-    if (selectedCells.includes(cellId)) {
-      result[cellId] = 1.0; // Selected cells have high projection values
-    } else {
-      // Mock calculation - spreading outward with decay
-      const mockValue = Math.random() * 0.3 * (timeWindow / 15); // Scale with time window
-      result[cellId] = mockValue;
+  for (let i = 0; i < timeWindow; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    const dateStr = date.toISOString().split('T')[0];
+    
+    if (!movementMatrices[dateStr]) {
+      console.warn(`Missing matrix for date ${dateStr}`);
+      return {};
     }
+    dates.push(dateStr);
   }
   
-  return result;
+  // Get matrix dimensions
+  const firstMatrix = movementMatrices[dates[0]];
+  const n = firstMatrix.length;
+  
+  // Create initial vector x with 1s for selected cells, 0s elsewhere
+  const x = new Array(n).fill(0);
+  selectedCells.forEach(cellId => {
+    if (cellId < n) {
+      x[cellId] = 1;
+    }
+  });
+  
+  // Apply matrices sequentially: x' = M(t+w-1) * ... * M(t+1) * M(t) * x
+  let result = [...x];
+  
+  for (const dateStr of dates) {
+    const M = movementMatrices[dateStr];
+    const newResult = new Array(n).fill(0);
+    
+    // Matrix-vector multiplication: newResult = M * result
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        newResult[i] += M[i][j] * result[j];
+      }
+    }
+    
+    result = newResult;
+  }
+  
+  // Convert result array to object mapping cell_id -> probability
+  const analysisResult = {};
+  for (let i = 0; i < n; i++) {
+    analysisResult[i] = result[i];
+  }
+  
+  return analysisResult;
 };
 
 // Color functions for the two analysis types
 const getBasinColor = (value) => {
-  // Blue color scale for basin analysis
-  const intensity = Math.min(value, 1);
-  return `rgba(0, 100, 255, ${intensity})`;
+  // Normalize to 0-1 range and create blue color scale
+  const normalizedValue = Math.max(0, Math.min(1, value));
+  const baseColor = [0, 100, 255]; // Blue
+  
+  // Near white at 0, full saturation at 1
+  const r = Math.round(255 - (255 - baseColor[0]) * normalizedValue);
+  const g = Math.round(255 - (255 - baseColor[1]) * normalizedValue);
+  const b = Math.round(255 - (255 - baseColor[2]) * normalizedValue);
+  
+  return `rgb(${r}, ${g}, ${b})`;
 };
 
 const getProjectionColor = (value) => {
-  // Orange color scale for projection analysis
-  const intensity = Math.min(value, 1);
-  return `rgba(255, 140, 0, ${intensity})`;
+  // Normalize to 0-1 range and create orange color scale
+  const normalizedValue = Math.max(0, Math.min(1, value));
+  const baseColor = [255, 140, 0]; // Orange
+  
+  // Near white at 0, full saturation at 1
+  const r = Math.round(255 - (255 - baseColor[0]) * normalizedValue);
+  const g = Math.round(255 - (255 - baseColor[1]) * normalizedValue);
+  const b = Math.round(255 - (255 - baseColor[2]) * normalizedValue);
+  
+  return `rgb(${r}, ${g}, ${b})`;
 };
 
 function SidePanels({ 
