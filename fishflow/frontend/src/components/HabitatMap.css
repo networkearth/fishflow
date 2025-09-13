@@ -1,0 +1,270 @@
+.habitat-map-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+/* Controls at the top */
+.habitat-controls {
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  flex: 0 0 auto;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-group label {
+  font-weight: 600;
+  color: #333;
+  min-width: 120px;
+}
+
+.percentile-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.percentile-inputs input {
+  width: 60px;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.percentile-inputs span {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Date slider at bottom */
+.date-control {
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+  flex: 0 0 auto;
+}
+
+.date-control label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.date-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.date-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.date-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.date-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.date-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* R-Value vertical slider on the right */
+.r-value-control {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+  z-index: 1000;
+}
+
+.r-value-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+
+.r-label {
+  font-size: 12px;
+  color: #666;
+  padding: 2px 4px;
+  border-radius: 3px;
+  min-width: 40px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.r-label.active {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.r-value-slider {
+  width: 80px;
+  height: 6px;
+  border-radius: 3px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transform: rotate(-90deg);
+  margin: 10px 0;
+}
+
+.r-value-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.r-value-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.r-value-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.r-value-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Map takes remaining space */
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+/* Selection info at bottom right of map */
+.selection-info {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+  font-size: 14px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.clear-selection-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clear-selection-btn:hover {
+  background: #c82333;
+}
+
+/* Loading state */
+.habitat-map-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .r-value-control {
+    right: 5px;
+    padding: 10px 8px;
+  }
+  
+  .r-value-slider {
+    width: 60px;
+  }
+  
+  .selection-info {
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+  }
+  
+  .habitat-controls {
+    padding: 8px 10px;
+  }
+  
+  .date-control {
+    padding: 8px 10px;
+  }
+}

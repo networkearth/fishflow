@@ -1,0 +1,147 @@
+/* Scenario Sidebar Styles */
+.scenario-sidebar {
+  width: 100%;
+  height: 100%; /* Take full height of parent */
+  padding: 20px;
+  background: #f8f9fa;
+  overflow-y: auto;
+  box-sizing: border-box; /* Include padding in height calculation */
+  display: flex;
+  flex-direction: column;
+}
+
+.current-scenario {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #e8f5e8;
+  border: 1px solid #28a745;
+  border-radius: 8px;
+}
+
+.current-scenario h4 {
+  margin: 0 0 8px 0;
+  color: #155724;
+  font-size: 14px;
+}
+
+.current-scenario-name {
+  font-weight: bold;
+  color: #155724;
+}
+
+.scenario-list {
+  margin-bottom: 20px;
+}
+
+.scenario-item {
+  padding: 15px;
+  margin: 10px 0;
+  background: white;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.scenario-item:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 4px rgba(0,123,255,0.1);
+}
+
+.scenario-item.selected {
+  border-color: #007bff;
+  background: #e3f2fd;
+}
+
+.scenario-item.current {
+  border-color: #28a745;
+  background: #f8fff8;
+}
+
+.scenario-item.current.selected {
+  border-color: #28a745;
+  background: #e8f5e8;
+}
+
+.scenario-item h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.scenario-species {
+  margin: 4px 0;
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+}
+
+.scenario-region {
+  margin: 4px 0;
+  color: #888;
+  font-size: 13px;
+}
+
+.current-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #28a745;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.scenario-details {
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.scenario-details h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.detail-item {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.detail-item strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.load-scenario-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.load-scenario-btn:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.load-scenario-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin: 10px 0;
+}
