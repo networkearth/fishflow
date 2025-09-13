@@ -25,3 +25,36 @@
 .leaflet-tooltip.analysis-tooltip::before {
   border-top-color: rgba(0, 0, 0, 0.8);
 }
+
+.color-max-header {
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.color-max-slider {
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.color-max-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #dc3545;
+  cursor: pointer;
+  border: 1px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}

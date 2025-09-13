@@ -27,6 +27,7 @@ function MovementPanel({
   colorFunction
 }) {
   const [loading, setLoading] = useState(false);
+  const [colorMax, setColorMax] = useState(1.0);
   
   // Calculate the movement analysis data
   const analysisData = useMemo(() => {
@@ -75,6 +76,18 @@ function MovementPanel({
   
   return (
     <div className="movement-panel">
+        <div className="color-max-header">
+            <span>Color Max: {colorMax.toFixed(2)}</span>
+            <input
+                type="range"
+                min="0.1"
+                max="1.0"
+                step="0.05"
+                value={colorMax}
+                onChange={(e) => setColorMax(parseFloat(e.target.value))}
+                className="color-max-slider"
+            />
+        </div>
       {/* Map */}
       <div className="map-container">
         <MapContainer 
@@ -98,7 +111,7 @@ function MovementPanel({
                 key={cell.cell_id}
                 positions={cell.geometry.coordinates[0].map(coord => [coord[1], coord[0]])}
                 pathOptions={{
-                  fillColor: colorFunction(analysisValue),
+                  fillColor: colorFunction(analysisValue, colorMax),
                   fillOpacity: analysisValue > 0 ? 0.7 : 0.1,
                   color: isSelected ? '#ff0000' : '#333',
                   weight: isSelected ? 2 : 0.5,
