@@ -4,6 +4,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { useState, useEffect } from 'react';
 import ScenarioSidebar from './components/ScenarioSidebar';
 import HabitatMap from './components/HabitatMap';
+import SidePanels from './components/SidePanels';
 
 function App() {
   const [currentScenario, setCurrentScenario] = useState(null);
@@ -14,6 +15,9 @@ function App() {
   const [habitatData, setHabitatData] = useState(null);
   const [geometries, setGeometries] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [movementMatrices, setMovementMatrices] = useState({});
+  const [loadingMatrices, setLoadingMatrices] = useState(false);
 
   // Load scenario data when scenario changes
   useEffect(() => {
@@ -75,6 +79,94 @@ function App() {
   };
 
 
+  // Function to calculate required date range using scenario's max window
+  const getRequiredDateRange = (currentDate, scenario) => {
+    if (!currentDate || !scenario) return null;
+    
+    const current = new Date(currentDate);
+    const startDate = new Date(current);
+    const endDate = new Date(current);
+    
+    startDate.setDate(current.getDate() - scenario.maximum_window_size);
+    endDate.setDate(current.getDate() + scenario.maximum_window_size);
+    
+    return {
+      start: startDate.toISOString().split('T')[0],
+      end: endDate.toISOString().split('T')[0]
+    };
+  };
+
+  // Function to check if we need to load more matrices
+  const needsMatrices = (requiredRange, existingMatrices) => {
+    if (!requiredRange) return false;
+    
+    const start = new Date(requiredRange.start);
+    const end = new Date(requiredRange.end);
+    
+    // Check if we have all dates in the required range
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const dateStr = d.toISOString().split('T')[0];
+      if (!existingMatrices[dateStr]) {
+        return true;
+      }
+    }
+    
+    return false;
+  };
+
+  // Function to load matrices for the full required range
+  const loadMatricesForRange = async (range, scenario) => {
+    if (!range) return {};
+    
+    setLoadingMatrices(true);
+    
+    try {
+      const response = await fetch(
+        `http://localhost:8000/v1/scenario/${scenario.scenario_id}/matrices?start_date=${range.start}&end_date=${range.end}`
+      );
+      
+      if (!response.ok) throw new Error('Failed to load matrices');
+      
+      const data = await response.json();
+      const matrices = {};
+      
+      data.matrices.forEach(matrixData => {
+        matrices[matrixData.date] = matrixData.matrix;
+      });
+      
+      return matrices;
+    } catch (error) {
+      console.error('Error loading movement matrices:', error);
+      return {};
+    } finally {
+      setLoadingMatrices(false);
+    }
+  };
+
+  // Clear matrices when scenario changes
+  useEffect(() => {
+    setMovementMatrices({});
+  }, [currentScenario]);
+
+  // Load matrices when date changes (but keep existing cache)
+  useEffect(() => {
+    if (!currentScenario || !currentDate) return;
+    
+    const requiredRange = getRequiredDateRange(currentDate, currentScenario);
+    
+    if (needsMatrices(requiredRange, movementMatrices)) {
+      const loadMatrices = async () => {
+        const newMatrices = await loadMatricesForRange(requiredRange, currentScenario);
+        setMovementMatrices(prev => ({
+          ...prev,
+          ...newMatrices
+        }));
+      };
+      
+      loadMatrices();
+    }
+  }, [currentDate, currentScenario, movementMatrices]);
+
   return (
     <div className="App">
       <div className="scenario-panel">
@@ -97,39 +189,15 @@ function App() {
         </div>
       </div>
       
-      <div className="side-panels">
-        <div className="basin-panel">
-          <div className="panel-header">Basin Analysis</div>
-          <div className="map-container">
-            <MapContainer 
-              center={[45.0, -125.0]} 
-              zoom={7} 
-              style={{ height: '100%', width: '100%' }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-            </MapContainer>
-          </div>
-        </div>
+      <SidePanels
+          geometries={geometries}
+          movementMatrices={movementMatrices}
+          selectedCells={selectedCells}
+          currentDate={currentDate}
+          scenario={currentScenario}
+        />
         
-        <div className="projection-panel">
-          <div className="panel-header">Forward Projection</div>
-          <div className="map-container">
-            <MapContainer 
-              center={[45.0, -125.0]} 
-              zoom={7} 
-              style={{ height: '100%', width: '100%' }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-            </MapContainer>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }

@@ -1,0 +1,27 @@
+.movement-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+/* Custom tooltip styling */
+.leaflet-tooltip.analysis-tooltip {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.leaflet-tooltip.analysis-tooltip::before {
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
