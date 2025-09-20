@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from datetime import date
 
 
-class ScenarioSummary(BaseModel):
+class MovementScenarioSummary(BaseModel):
     scenario_id: str
     name: str
     species: str
@@ -34,8 +34,8 @@ class ScenarioSummary(BaseModel):
         }
 
 
-class ScenariosResponse(BaseModel):
-    scenarios: List[ScenarioSummary]
+class MovementScenariosResponse(BaseModel):
+    scenarios: List[MovementScenarioSummary]
 
 
 class GeoJSONPolygon(BaseModel):

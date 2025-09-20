@@ -3,13 +3,13 @@ from datetime import date, timedelta
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.models import (
-    ScenariosResponse,
+from app.movement_models import (
+    MovementScenariosResponse,
     GridGeometries,
     AllHabitatQuality,
     MovementMatrices,
 )
-from app.data_loader import data_loader
+from app.movement_data_loader import movement_data_loader
 
 app = FastAPI(
     title="FishFlow API",
@@ -27,11 +27,11 @@ app.add_middleware(
 )
 
 
-@app.get("/v1/movement/scenarios", response_model=ScenariosResponse)
+@app.get("/v1/movement/scenarios", response_model=MovementScenariosResponse)
 async def get_scenarios():
     """List all available scenarios"""
-    scenarios = data_loader.get_scenarios()
-    return ScenariosResponse(scenarios=scenarios)
+    scenarios = movement_data_loader.get_scenarios()
+    return MovementScenariosResponse(scenarios=scenarios)
 
 
 @app.get(
@@ -39,7 +39,7 @@ async def get_scenarios():
 )
 async def get_scenario_geometries(scenario_id: str):
     """Get spatial grid geometries for scenario"""
-    geometries = data_loader.get_geometries(scenario_id)
+    geometries = movement_data_loader.get_geometries(scenario_id)
     if not geometries:
         raise HTTPException(
             status_code=404, detail="Scenario not found or geometries unavailable"
@@ -52,7 +52,7 @@ async def get_scenario_geometries(scenario_id: str):
 )
 async def get_habitat_quality(scenario_id: str):
     """Get all habitat quality data for scenario"""
-    habitat_data = data_loader.get_habitat_quality(scenario_id)
+    habitat_data = movement_data_loader.get_habitat_quality(scenario_id)
     if not habitat_data:
         raise HTTPException(
             status_code=404, detail="Scenario not found or habitat data unavailable"
@@ -72,7 +72,7 @@ async def get_movement_matrices(
 ):
     """Get movement matrices for date range"""
     # Validate scenario exists
-    scenario = data_loader.get_scenario_by_id(scenario_id)
+    scenario = movement_data_loader.get_scenario_by_id(scenario_id)
     if not scenario:
         raise HTTPException(status_code=404, detail="Scenario not found")
 
@@ -118,7 +118,9 @@ async def get_movement_matrices(
             detail=f"Date range too large: {total_days} days requested (maximum 60 days)",
         )
 
-    matrices = data_loader.get_movement_matrices(scenario_id, start_date, end_date)
+    matrices = movement_data_loader.get_movement_matrices(
+        scenario_id, start_date, end_date
+    )
     if not matrices:
         raise HTTPException(
             status_code=404, detail="Movement matrices unavailable for this date range"

@@ -3,8 +3,8 @@ from pathlib import Path
 from typing import List, Optional
 from datetime import datetime, date, timedelta
 import h5py
-from app.models import (
-    ScenarioSummary,
+from app.movement_models import (
+    MovementScenarioSummary,
     GridGeometries,
     GeoJSONPolygon,
     GridCell,
@@ -15,7 +15,7 @@ from app.models import (
 )
 
 
-class DataLoader:
+class MovementDataLoader:
     def __init__(self, data_dir: str = "data"):
         self.data_dir = Path(data_dir)
         self._load_scenarios()
@@ -42,17 +42,17 @@ class DataLoader:
                             for d in metadata["dates"]
                         ]
 
-                        scenario = ScenarioSummary(**metadata)
+                        scenario = MovementScenarioSummary(**metadata)
                         self.scenarios.append(scenario)
                         print(f"Loaded scenario: {scenario.scenario_id}")
                     except Exception as e:
                         print(f"Error loading scenario from {scenario_dir}: {e}")
 
-    def get_scenarios(self) -> List[ScenarioSummary]:
+    def get_scenarios(self) -> List[MovementScenarioSummary]:
         """Get all available scenarios"""
         return self.scenarios
 
-    def get_scenario_by_id(self, scenario_id: str) -> Optional[ScenarioSummary]:
+    def get_scenario_by_id(self, scenario_id: str) -> Optional[MovementScenarioSummary]:
         """Get a specific scenario by ID"""
         for scenario in self.scenarios:
             if scenario.scenario_id == scenario_id:
@@ -220,4 +220,4 @@ class DataLoader:
             return None
 
 
-data_loader = DataLoader()
+movement_data_loader = MovementDataLoader()
