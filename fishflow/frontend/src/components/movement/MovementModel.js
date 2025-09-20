@@ -33,8 +33,8 @@ function MovementModel({ onNavigate }) {
       try {
         // Load geometries and habitat data in parallel
         const [geometriesResponse, habitatResponse] = await Promise.all([
-          fetch(`http://localhost:8000/v1/scenario/${currentScenario.scenario_id}/geometries`),
-          fetch(`http://localhost:8000/v1/scenario/${currentScenario.scenario_id}/habitat`)
+          fetch(`http://localhost:8000/v1/movement/scenario/${currentScenario.scenario_id}/geometries`),
+          fetch(`http://localhost:8000/v1/movement/scenario/${currentScenario.scenario_id}/habitat`)
         ]);
 
         if (!geometriesResponse.ok || !habitatResponse.ok) {
@@ -122,7 +122,7 @@ function MovementModel({ onNavigate }) {
     
     try {
       const response = await fetch(
-        `http://localhost:8000/v1/scenario/${scenario.scenario_id}/matrices?start_date=${range.start}&end_date=${range.end}`
+        `http://localhost:8000/v1/movement/scenario/${scenario.scenario_id}/matrices?start_date=${range.start}&end_date=${range.end}`
       );
       
       if (!response.ok) throw new Error('Failed to load matrices');

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Fish } from 'lucide-react';
 import MovementModelCard from './movement/MovementModelCard';
-import DepthModelCard from './DepthModelCard';
+import DepthModelCard from './depth/DepthModelCard';
 import './LandingPage.css';
 
 const LandingPage = ({ onNavigate }) => {

@@ -27,14 +27,16 @@ app.add_middleware(
 )
 
 
-@app.get("/v1/scenarios", response_model=ScenariosResponse)
+@app.get("/v1/movement/scenarios", response_model=ScenariosResponse)
 async def get_scenarios():
     """List all available scenarios"""
     scenarios = data_loader.get_scenarios()
     return ScenariosResponse(scenarios=scenarios)
 
 
-@app.get("/v1/scenario/{scenario_id}/geometries", response_model=GridGeometries)
+@app.get(
+    "/v1/movement/scenario/{scenario_id}/geometries", response_model=GridGeometries
+)
 async def get_scenario_geometries(scenario_id: str):
     """Get spatial grid geometries for scenario"""
     geometries = data_loader.get_geometries(scenario_id)
@@ -45,7 +47,9 @@ async def get_scenario_geometries(scenario_id: str):
     return geometries
 
 
-@app.get("/v1/scenario/{scenario_id}/habitat", response_model=AllHabitatQuality)
+@app.get(
+    "/v1/movement/scenario/{scenario_id}/habitat", response_model=AllHabitatQuality
+)
 async def get_habitat_quality(scenario_id: str):
     """Get all habitat quality data for scenario"""
     habitat_data = data_loader.get_habitat_quality(scenario_id)
@@ -56,7 +60,9 @@ async def get_habitat_quality(scenario_id: str):
     return habitat_data
 
 
-@app.get("/v1/scenario/{scenario_id}/matrices", response_model=MovementMatrices)
+@app.get(
+    "/v1/movement/scenario/{scenario_id}/matrices", response_model=MovementMatrices
+)
 async def get_movement_matrices(
     scenario_id: str,
     start_date: date = Query(..., description="Start date for date range (ISO format)"),

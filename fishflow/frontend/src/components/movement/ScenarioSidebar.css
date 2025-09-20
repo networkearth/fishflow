@@ -1,11 +1,11 @@
 /* Scenario Sidebar Styles */
 .scenario-sidebar {
   width: 100%;
-  height: 100%; /* Take full height of parent */
+  min-height: 100vh; /* Full viewport height */
   padding: 20px;
   background: #f8f9fa;
   overflow-y: auto;
-  box-sizing: border-box; /* Include padding in height calculation */
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layers, Clock } from 'lucide-react';
-import ModelCard from './ModelCard';
+import ModelCard from '../ModelCard';
 
 const DepthModelCard = ({ onNavigate }) => {
   const cardConfig = {

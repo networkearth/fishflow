@@ -11,7 +11,7 @@ servers:
     description: Development server
 
 paths:
-  /scenarios:
+  /movement/scenarios:
     get:
       summary: List all available scenarios
       description: Returns a list of all movement analysis scenarios available in the system
@@ -30,7 +30,7 @@ paths:
                       $ref: '#/components/schemas/ScenarioSummary'
         '500':
           description: Internal server error
-  /scenario/{scenario_id}/geometries:
+  /movement/scenario/{scenario_id}/geometries:
     get:
       summary: Get spatial grid geometries for scenario
       description: Returns GeoJSON polygons for all grid cells in the scenario
@@ -55,7 +55,7 @@ paths:
         '500':
           description: Internal server error
 
-  /scenario/{scenario_id}/habitat:
+  /movement/scenario/{scenario_id}/habitat:
     get:
       summary: Get all habitat quality data for scenario
       description: Returns precomputed habitat probability data for all dates and r_values in the scenario
@@ -80,7 +80,7 @@ paths:
         '500':
           description: Internal server error
 
-  /scenario/{scenario_id}/matrices:
+  /movement/scenario/{scenario_id}/matrices:
     get:
       summary: Get movement matrices for date range
       description: Returns movement matrices for specified date range (inclusive)
