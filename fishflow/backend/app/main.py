@@ -9,7 +9,12 @@ from app.movement_models import (
     AllHabitatQuality,
     MovementMatrices,
 )
+from app.depth_models import (
+    DepthScenariosResponse,
+)
 from app.movement_data_loader import movement_data_loader
+from app.depth_data_loader import depth_data_loader
+
 
 app = FastAPI(
     title="FishFlow API",
@@ -25,6 +30,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+## --- MOVEMENT MODEL --- ##
 
 
 @app.get("/v1/movement/scenarios", response_model=MovementScenariosResponse)
@@ -127,6 +134,27 @@ async def get_movement_matrices(
         )
 
     return matrices
+
+
+## -- DEPTH MODEL -- ##
+
+
+@app.get("/v1/depth/scenarios", response_model=DepthScenariosResponse)
+async def get_scenarios():
+    """List all available scenarios"""
+    scenarios = depth_data_loader.get_scenarios()
+    return DepthScenariosResponse(scenarios=scenarios)
+
+
+@app.get("/v1/depth/scenario/{scenario_id}/geometries", response_model=GridGeometries)
+async def get_scenario_geometries(scenario_id: str):
+    """Get spatial grid geometries for scenario"""
+    geometries = depth_data_loader.get_geometries(scenario_id)
+    if not geometries:
+        raise HTTPException(
+            status_code=404, detail="Scenario not found or geometries unavailable"
+        )
+    return geometries
 
 
 @app.get("/")

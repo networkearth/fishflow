@@ -16,7 +16,7 @@ from app.movement_models import (
 
 
 class MovementDataLoader:
-    def __init__(self, data_dir: str = "data"):
+    def __init__(self, data_dir: str = "data/movement"):
         self.data_dir = Path(data_dir)
         self._load_scenarios()
 
