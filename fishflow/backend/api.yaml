@@ -13,6 +13,8 @@ servers:
 paths:
   /movement/scenarios:
     get:
+      tags:
+        - Movement Model
       summary: List all available scenarios
       description: Returns a list of all movement analysis scenarios available in the system
       operationId: getScenarios
@@ -27,11 +29,13 @@ paths:
                   scenarios:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ScenarioSummary'
+                      $ref: '#/components/schemas/MovementScenarioSummary'
         '500':
           description: Internal server error
   /movement/scenario/{scenario_id}/geometries:
     get:
+      tags:
+        - Movement Model
       summary: Get spatial grid geometries for scenario
       description: Returns GeoJSON polygons for all grid cells in the scenario
       operationId: getScenarioGeometries
@@ -57,6 +61,8 @@ paths:
 
   /movement/scenario/{scenario_id}/habitat:
     get:
+      tags:
+        - Movement Model
       summary: Get all habitat quality data for scenario
       description: Returns precomputed habitat probability data for all dates and r_values in the scenario
       operationId: getHabitatQuality
@@ -82,6 +88,8 @@ paths:
 
   /movement/scenario/{scenario_id}/matrices:
     get:
+      tags:
+        - Movement Model
       summary: Get movement matrices for date range
       description: Returns movement matrices for specified date range (inclusive)
       operationId: getMovementMatrices
@@ -123,9 +131,146 @@ paths:
         '500':
           description: Internal server error
 
+  /depth/scenarios:
+    get:
+      summary: List available depth model scenarios
+      description: Returns a list of all available depth occupancy model scenarios with metadata
+      tags:
+        - Depth Model
+      responses:
+        '200':
+          description: Successful response with scenario list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - scenarios
+                properties:
+                  scenarios:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DepthScenarioSummary'
+        '500':
+          description: Internal server error
+  /depth/{scenario_id}/occupancy:
+    get:
+      summary: Get depth occupancy data
+      description: Returns hourly probability data for specified scenario, month, and depth bin
+      tags:
+        - Depth Model
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          description: The scenario identifier
+          schema:
+            type: string
+          example: "chinook_goa_depth_2024"
+        - name: month
+          in: query
+          required: true
+          description: Month to retrieve data for
+          schema:
+            type: string
+            format: date
+          example: "2024-01-01"
+        - name: depth_bin
+          in: query
+          required: true
+          description: Depth bin upper boundary in meters
+          schema:
+            type: integer
+          example: 100
+      responses:
+        '200':
+          description: Successful response with occupancy data
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - scenario_id
+                  - month
+                  - depth_bin
+                  - data
+                properties:
+                  scenario_id:
+                    type: string
+                    example: "chinook_goa_depth_2024"
+                  month:
+                    type: string
+                    format: date
+                    example: "2024-01-01"
+                  depth_bin:
+                    type: integer
+                    example: 100
+                  data:
+                    type: object
+                    description: Occupancy probabilities organized by timepoint (hour) and cell
+                    required:
+                      - timestamps
+                      - probabilities
+                    properties:
+                      timestamps:
+                        type: array
+                        description: Array of datetime strings for each hour in the month
+                        items:
+                          type: string
+                          format: date-time
+                        example: ["2024-03-01T00:00:00Z", "2024-03-01T01:00:00Z", "2024-03-01T02:00:00Z"]
+                      probabilities:
+                        type: array
+                        description: 2D array of probabilities [timestamp][cell]
+                        items:
+                          type: array
+                          items:
+                            type: number
+                            format: float
+                            minimum: 0.0
+                            maximum: 1.0
+                        example: [[0.1, 0.2, 0.0], [0.15, 0.25, 0.05], [0.12, 0.18, 0.02]]
+              example:
+                scenario_id: "chinook_goa_depth_2024"
+                month: "2024-01-01"
+                depth_bin: 100
+                data:
+                  timestamps: ["2024-03-01T00:00:00Z", "2024-03-01T01:00:00Z", "2024-03-01T02:00:00Z"]
+                  probabilities: [[0.1, 0.2, 0.0], [0.15, 0.25, 0.05]]
+        '400':
+          description: Bad request - invalid parameters
+        '500':
+          description: Internal server error
+  /depth/scenario/{scenario_id}/geometries:
+    get:
+      summary: Get spatial grid geometries for scenario
+      description: Returns GeoJSON polygons for all grid cells in the scenario
+      operationId: getScenarioGeometries
+      tags:
+        - Depth Model
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          description: Unique identifier for the scenario
+          schema:
+            type: string
+            example: "chinook_gulf_of_alaska_2022"
+      responses:
+        '200':
+          description: Grid geometries retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GridGeometries'
+        '404':
+          description: Scenario not found
+        '500':
+          description: Internal server error
+
 components:
   schemas:
-    ScenarioSummary:
+    MovementScenarioSummary:
       type: object
       required:
         - scenario_id
@@ -338,3 +483,75 @@ components:
               matrix: [[0.8, 0.1, 0.1], [0.05, 0.9, 0.05], [0.2, 0.2, 0.6]]
             - date: "2022-03-16"
               matrix: [[0.7, 0.2, 0.1], [0.1, 0.8, 0.1], [0.3, 0.1, 0.6]]
+    DepthScenarioSummary:
+      type: object
+      required:
+        - scenario_id
+        - name
+        - species
+        - region
+        - description
+        - time_window
+        - grid_size
+        - depth_bins
+        - resolution
+      properties:
+        scenario_id:
+          type: string
+          description: Unique identifier for the scenario
+          example: "chinook_goa_depth_2024"
+        name:
+          type: string
+          description: Human-readable name for the scenario
+          example: "Chinook Salmon - GOA Depth Model 2024"
+        species:
+          type: string
+          description: Fish species
+          example: "Chinook salmon"
+        region:
+          type: string
+          description: Geographic region
+          example: "Gulf of Alaska"
+        description:
+          type: string
+          description: Detailed description of the scenario
+          example: "Hourly depth occupancy patterns for Chinook salmon in the Gulf of Alaska"
+        time_window:
+          type: array
+          description: Start and end dates for available data
+          items:
+            type: string
+            format: date
+          minItems: 2
+          maxItems: 2
+          example: ["2024-01-01", "2024-12-31"]
+        grid_size:
+          type: integer
+          description: Number of spatial grid cells
+          example: 1000
+        depth_bins:
+          type: array
+          description: Available depth bin upper boundaries in meters
+          items:
+            type: integer
+          example: [25, 50, 75, 100, 150, 200, 250, 300, 400, 500]
+        resolution:
+          type: string
+          description: Temporal resolution of the data
+          enum: ["hourly"]
+          example: "hourly"
+        map_center:
+          type: array
+          description: Center coordinates for map view [latitude, longitude]
+          items:
+            type: number
+            format: float
+          minItems: 2
+          maxItems: 2
+          example: [58.5, -152.0]
+        map_zoom:
+          type: integer
+          description: Recommended zoom level for this scenario
+          minimum: 1
+          maximum: 18
+          example: 6
