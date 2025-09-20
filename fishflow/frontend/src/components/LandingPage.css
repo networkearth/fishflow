@@ -1,0 +1,248 @@
+/* LandingPage.css */
+
+.landing-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+}
+
+/* Header Styles */
+.landing-header {
+  background: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.landing-header-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.landing-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.landing-logo {
+  height: 2rem;
+  width: 2rem;
+  color: #2563eb;
+}
+
+.landing-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.landing-subtitle {
+  color: #6b7280;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Main Content */
+.landing-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Introduction Section */
+.landing-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.landing-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.landing-description {
+  font-size: 1.25rem;
+  color: #6b7280;
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Cards Grid */
+.landing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+/* Footer Section */
+.landing-footer {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.footer-info {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.footer-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.75rem 0;
+}
+
+.footer-description {
+  color: #6b7280;
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.footer-item {
+  text-align: left;
+}
+
+.footer-item-title {
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.875rem;
+}
+
+.footer-item-text {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .landing-header-content {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .landing-main {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .landing-cards {
+    max-width: 64rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-header-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .landing-heading {
+    font-size: 2rem;
+  }
+  
+  .landing-description {
+    font-size: 1.125rem;
+  }
+  
+  .landing-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .footer-item {
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-header-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .landing-main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+  }
+  
+  .landing-intro {
+    margin-bottom: 2rem;
+  }
+  
+  .landing-heading {
+    font-size: 1.75rem;
+  }
+  
+  .landing-description {
+    font-size: 1rem;
+  }
+  
+  .footer-info {
+    padding: 1rem;
+  }
+  
+  .landing-footer {
+    margin-top: 3rem;
+  }
+}
+
+/* Focus and Accessibility */
+.landing-header-title:focus-visible,
+.footer-info:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .landing-page {
+    background: white;
+  }
+  
+  .landing-header {
+    box-shadow: none;
+    border-bottom: 1px solid #000;
+  }
+  
+  .footer-info {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}

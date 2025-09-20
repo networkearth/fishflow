@@ -1,0 +1,222 @@
+/* ModelCard.css */
+
+.model-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.3s ease;
+}
+
+.model-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.card-content {
+  padding: 2rem;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.card-icon {
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon-blue {
+  background-color: #dbeafe;
+}
+
+.card-icon-green {
+  background-color: #dcfce7;
+}
+
+.card-icon .icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+.card-icon-blue .icon {
+  color: #2563eb;
+}
+
+.card-icon-green .icon {
+  color: #16a34a;
+}
+
+.card-title-section {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
+
+.card-subtitle {
+  color: #6b7280;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Features Section */
+.card-features {
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.feature-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #9ca3af;
+  margin-top: 0.125rem;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-title {
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.feature-description {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Specs Section */
+.card-specs {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.specs-title {
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.specs-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specs-list li {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 0.25rem;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.specs-list li:before {
+  content: "•";
+  color: #6b7280;
+  position: absolute;
+  left: 0;
+}
+
+.specs-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Button */
+.card-button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: white;
+}
+
+.card-button-blue {
+  background-color: #2563eb;
+}
+
+.card-button-blue:hover {
+  background-color: #1d4ed8;
+}
+
+.card-button-green {
+  background-color: #16a34a;
+}
+
+.card-button-green:hover {
+  background-color: #15803d;
+}
+
+.button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .card-header {
+    margin-bottom: 1rem;
+  }
+  
+  .card-features {
+    margin-bottom: 1.5rem;
+  }
+  
+  .card-specs {
+    margin-bottom: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+  }
+  
+  .feature-item {
+    margin-bottom: 0.75rem;
+  }
+}

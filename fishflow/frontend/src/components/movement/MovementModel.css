@@ -1,0 +1,90 @@
+/* MovementModel.css */
+.App {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.scenario-panel {
+  flex: 0 0 300px;
+  border-right: 2px solid #ccc;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-panel {
+  flex: 2;
+  position: relative;
+  border-right: 1px solid #ccc;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panels-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.basin-panel, .projection-panel {
+  flex: 1;
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+
+.projection-panel {
+  border-bottom: none;
+}
+
+.panel-header {
+  background: #f5f5f5;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  flex: 0 0 auto;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+.no-scenario-message {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  color: #666;
+  text-align: center;
+}
+
+.no-scenario-message h2 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.no-scenario-message p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Back button styles */
+.back-button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  margin-right: 1rem;
+  font-size: 14px;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
