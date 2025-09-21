@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './DepthModel.css';
+import DepthScenarioSelector from './DepthScenarioSelector';
 
 const DepthModel = ({ onNavigate }) => {
   // Core state for the depth model
@@ -14,35 +15,13 @@ const DepthModel = ({ onNavigate }) => {
 
   return (
     <div className="depth-model">
-      {/* Left Sidebar - Scenario Selection */}
-      <div className="scenario-sidebar">
-        <div className="sidebar-header">
-          <button onClick={() => onNavigate('home')} className="back-button">
-            ← Home
-          </button>
-          <h3>Scenario Selection</h3>
+        {/* Left Sidebar - Scenario Selection */}
+        <div className="scenario-sidebar">
+            <DepthScenarioSelector 
+                onScenarioLoad={setCurrentScenario} 
+                currentScenario={currentScenario} 
+            />
         </div>
-        
-        <div className="scenario-content">
-          {/* Placeholder for scenario selector */}
-          <div className="scenario-placeholder">
-            <p>Scenario selection will go here</p>
-            <div className="scenario-option">Chinook Salmon - GOA 2024</div>
-            <div className="scenario-option">Coho Salmon - GOA 2024</div>
-            <div className="scenario-option">King Salmon - SE Alaska 2024</div>
-          </div>
-          
-          {currentScenario && (
-            <div className="model-details">
-              <h4>Model Details</h4>
-              <p>Spatial extent: 1,000 cells</p>
-              <p>Time window: Jan 2024 - Dec 2024</p>
-              <p>Resolution: Hourly (8,760 points)</p>
-              <p>Depth bins: 10 layers</p>
-            </div>
-          )}
-        </div>
-      </div>
 
       {/* Center Panel - Map and Time Series */}
       <div className="center-panels">
@@ -50,6 +29,9 @@ const DepthModel = ({ onNavigate }) => {
         <div className="map-panel">
           <div className="panel-header">
             <h3>Minimum Risk by H3 Cell</h3>
+            <button onClick={() => onNavigate('home')} className="back-button">
+                ← Home
+            </button>
           </div>
           <div className="map-container">
             {/* Placeholder for depth map */}

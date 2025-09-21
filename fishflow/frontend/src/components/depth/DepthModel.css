@@ -9,7 +9,7 @@
 
 /* Left Sidebar - Scenario Selection */
 .scenario-sidebar {
-  flex: 0 0 250px;
+  flex: 0 0 300px;
   background: white;
   border-right: 1px solid #e5e7eb;
   display: flex;
