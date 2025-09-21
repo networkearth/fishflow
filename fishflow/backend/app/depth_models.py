@@ -36,3 +36,31 @@ class DepthScenarioSummary(BaseModel):
 
 class DepthScenariosResponse(BaseModel):
     scenarios: List[DepthScenarioSummary]
+
+
+class OccupancyData(BaseModel):
+    timestamps: List[str]
+    probabilities: List[List[float]]
+
+
+class OccupancyResponse(BaseModel):
+    scenario_id: str
+    month: str
+    depth_bin: int
+    data: OccupancyData
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "scenario_id": "chinook_goa_depth_2024",
+                "month": "2024-01-01",
+                "depth_bin": 100,
+                "data": {
+                    "timestamps": [
+                        "2024-01-01T00:00:00-09:00",
+                        "2024-01-01T01:00:00-09:00",
+                    ],
+                    "probabilities": [[0.1, 0.2, 0.0], [0.15, 0.25, 0.05]],
+                },
+            }
+        }

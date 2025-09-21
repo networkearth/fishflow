@@ -9,9 +9,7 @@ from app.movement_models import (
     AllHabitatQuality,
     MovementMatrices,
 )
-from app.depth_models import (
-    DepthScenariosResponse,
-)
+from app.depth_models import DepthScenariosResponse, OccupancyResponse
 from app.movement_data_loader import movement_data_loader
 from app.depth_data_loader import depth_data_loader
 
@@ -155,6 +153,42 @@ async def get_scenario_geometries(scenario_id: str):
             status_code=404, detail="Scenario not found or geometries unavailable"
         )
     return geometries
+
+
+@app.get("/v1/depth/scenario/{scenario_id}/occupancy", response_model=OccupancyResponse)
+async def get_occupancy_data(
+    scenario_id: str,
+    month: str = Query(
+        ..., description="Month in YYYY-MM-DD format (e.g., 2024-01-01 for January)"
+    ),
+    depth_bin: int = Query(..., description="Depth bin upper boundary in meters"),
+):
+    """Get hourly occupancy probability data for specified scenario, month, and depth bin"""
+
+    # Validate scenario exists
+    scenario = depth_data_loader.get_scenario_by_id(scenario_id)
+    if not scenario:
+        raise HTTPException(
+            status_code=404, detail=f"Scenario '{scenario_id}' not found"
+        )
+
+    # Validate depth bin
+    if depth_bin not in scenario.depth_bins:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid depth bin {depth_bin}. Available bins: {scenario.depth_bins}",
+        )
+
+    # Load occupancy data
+    occupancy_data = depth_data_loader.get_occupancy_data(scenario_id, month, depth_bin)
+
+    if not occupancy_data:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No occupancy data found for scenario '{scenario_id}', month '{month}', depth bin {depth_bin}",
+        )
+
+    return occupancy_data
 
 
 @app.get("/")

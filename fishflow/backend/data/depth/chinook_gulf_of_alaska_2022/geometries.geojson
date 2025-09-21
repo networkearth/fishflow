@@ -635,48 +635,6 @@
       "type": "Feature",
       "properties": {
         "cell_id": 15,
-        "h3_index": "840c429ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -148.64589888374962,
-              60.36094457291086
-            ],
-            [
-              -149.05481405372348,
-              60.252390105411315
-            ],
-            [
-              -149.09272223768238,
-              60.04060809108973
-            ],
-            [
-              -148.72780811856737,
-              59.937972623176314
-            ],
-            [
-              -148.3230473209664,
-              60.04522864027809
-            ],
-            [
-              -148.27906380027278,
-              60.25640708069357
-            ],
-            [
-              -148.64589888374962,
-              60.36094457291086
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 16,
         "h3_index": "840c42bffffffff"
       },
       "geometry": {
@@ -718,7 +676,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 17,
+        "cell_id": 16,
         "h3_index": "840c431ffffffff"
       },
       "geometry": {
@@ -760,7 +718,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 18,
+        "cell_id": 17,
         "h3_index": "840c435ffffffff"
       },
       "geometry": {
@@ -802,7 +760,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 19,
+        "cell_id": 18,
         "h3_index": "840c437ffffffff"
       },
       "geometry": {
@@ -844,7 +802,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 20,
+        "cell_id": 19,
         "h3_index": "840c439ffffffff"
       },
       "geometry": {
@@ -886,7 +844,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 21,
+        "cell_id": 20,
         "h3_index": "840c43dffffffff"
       },
       "geometry": {
@@ -928,49 +886,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 22,
-        "h3_index": "840c441ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -146.4422504332277,
-              61.30908003960848
-            ],
-            [
-              -146.87131830899148,
-              61.20729758765664
-            ],
-            [
-              -146.92828098785654,
-              60.994399292621665
-            ],
-            [
-              -146.56254828123613,
-              60.88403992023307
-            ],
-            [
-              -146.13826632174144,
-              60.984611867961895
-            ],
-            [
-              -146.07495706119573,
-              61.19674230529767
-            ],
-            [
-              -146.4422504332277,
-              61.30908003960848
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 23,
+        "cell_id": 21,
         "h3_index": "840c443ffffffff"
       },
       "geometry": {
@@ -1012,7 +928,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 24,
+        "cell_id": 22,
         "h3_index": "840c445ffffffff"
       },
       "geometry": {
@@ -1054,7 +970,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 25,
+        "cell_id": 23,
         "h3_index": "840c447ffffffff"
       },
       "geometry": {
@@ -1096,7 +1012,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 26,
+        "cell_id": 24,
         "h3_index": "840c451ffffffff"
       },
       "geometry": {
@@ -1138,7 +1054,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 27,
+        "cell_id": 25,
         "h3_index": "840c455ffffffff"
       },
       "geometry": {
@@ -1180,7 +1096,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 28,
+        "cell_id": 26,
         "h3_index": "840c457ffffffff"
       },
       "geometry": {
@@ -1222,49 +1138,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 29,
-        "h3_index": "840c45dffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -145.35185148156893,
-              60.9702707273613
-            ],
-            [
-              -145.7774156294819,
-              60.872360573972465
-            ],
-            [
-              -145.84227474575187,
-              60.661506362153354
-            ],
-            [
-              -145.48767609444982,
-              60.549375921914915
-            ],
-            [
-              -145.06691440849815,
-              60.64615142450039
-            ],
-            [
-              -144.995976660443,
-              60.85618138195751
-            ],
-            [
-              -145.35185148156893,
-              60.9702707273613
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 30,
+        "cell_id": 27,
         "h3_index": "840c461ffffffff"
       },
       "geometry": {
@@ -1306,7 +1180,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 31,
+        "cell_id": 28,
         "h3_index": "840c463ffffffff"
       },
       "geometry": {
@@ -1348,7 +1222,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 32,
+        "cell_id": 29,
         "h3_index": "840c469ffffffff"
       },
       "geometry": {
@@ -1390,7 +1264,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 33,
+        "cell_id": 30,
         "h3_index": "840c46bffffffff"
       },
       "geometry": {
@@ -1432,7 +1306,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 34,
+        "cell_id": 31,
         "h3_index": "840c501ffffffff"
       },
       "geometry": {
@@ -1474,7 +1348,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 35,
+        "cell_id": 32,
         "h3_index": "840c503ffffffff"
       },
       "geometry": {
@@ -1516,7 +1390,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 36,
+        "cell_id": 33,
         "h3_index": "840c507ffffffff"
       },
       "geometry": {
@@ -1558,7 +1432,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 37,
+        "cell_id": 34,
         "h3_index": "840c509ffffffff"
       },
       "geometry": {
@@ -1600,7 +1474,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 38,
+        "cell_id": 35,
         "h3_index": "840c50bffffffff"
       },
       "geometry": {
@@ -1642,91 +1516,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 39,
-        "h3_index": "840c50dffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -152.9498984610265,
-              60.593146732507584
-            ],
-            [
-              -153.35114079290656,
-              60.47024193492226
-            ],
-            [
-              -153.35498085307424,
-              60.25506095841529
-            ],
-            [
-              -152.96401520716202,
-              60.16309745684273
-            ],
-            [
-              -152.56632364787717,
-              60.284474831771085
-            ],
-            [
-              -152.55605238299094,
-              60.49933023154634
-            ],
-            [
-              -152.9498984610265,
-              60.593146732507584
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 40,
-        "h3_index": "840c511ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -151.05970567452985,
-              59.690844579546734
-            ],
-            [
-              -151.45265764193653,
-              59.574898630968335
-            ],
-            [
-              -151.471156679394,
-              59.36357662172936
-            ],
-            [
-              -151.10263822280936,
-              59.268624028530446
-            ],
-            [
-              -150.71329615355512,
-              59.38317356701082
-            ],
-            [
-              -150.68887267940391,
-              59.59406039488892
-            ],
-            [
-              -151.05970567452985,
-              59.690844579546734
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 41,
+        "cell_id": 36,
         "h3_index": "840c513ffffffff"
       },
       "geometry": {
@@ -1768,7 +1558,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 42,
+        "cell_id": 37,
         "h3_index": "840c515ffffffff"
       },
       "geometry": {
@@ -1810,7 +1600,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 43,
+        "cell_id": 38,
         "h3_index": "840c517ffffffff"
       },
       "geometry": {
@@ -1852,7 +1642,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 44,
+        "cell_id": 39,
         "h3_index": "840c51bffffffff"
       },
       "geometry": {
@@ -1894,49 +1684,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 45,
-        "h3_index": "840c51dffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -151.4147739849457,
-              59.99951718999632
-            ],
-            [
-              -151.8113655265174,
-              59.88214445019173
-            ],
-            [
-              -151.8272621438378,
-              59.669632210119374
-            ],
-            [
-              -151.45265764193653,
-              59.574898630968335
-            ],
-            [
-              -151.05970567452985,
-              59.690844579546734
-            ],
-            [
-              -151.0377280410352,
-              59.902938850477675
-            ],
-            [
-              -151.4147739849457,
-              59.99951718999632
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 46,
+        "cell_id": 40,
         "h3_index": "840c523ffffffff"
       },
       "geometry": {
@@ -1978,7 +1726,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 47,
+        "cell_id": 41,
         "h3_index": "840c52bffffffff"
       },
       "geometry": {
@@ -2020,7 +1768,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 48,
+        "cell_id": 42,
         "h3_index": "840c531ffffffff"
       },
       "geometry": {
@@ -2062,7 +1810,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 49,
+        "cell_id": 43,
         "h3_index": "840c533ffffffff"
       },
       "geometry": {
@@ -2104,7 +1852,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 50,
+        "cell_id": 44,
         "h3_index": "840c535ffffffff"
       },
       "geometry": {
@@ -2146,7 +1894,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 51,
+        "cell_id": 45,
         "h3_index": "840c537ffffffff"
       },
       "geometry": {
@@ -2188,7 +1936,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 52,
+        "cell_id": 46,
         "h3_index": "840c539ffffffff"
       },
       "geometry": {
@@ -2230,7 +1978,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 53,
+        "cell_id": 47,
         "h3_index": "840c53bffffffff"
       },
       "geometry": {
@@ -2272,7 +2020,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 54,
+        "cell_id": 48,
         "h3_index": "840c53dffffffff"
       },
       "geometry": {
@@ -2314,7 +2062,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 55,
+        "cell_id": 49,
         "h3_index": "840c543ffffffff"
       },
       "geometry": {
@@ -2356,7 +2104,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 56,
+        "cell_id": 50,
         "h3_index": "840c54bffffffff"
       },
       "geometry": {
@@ -2398,7 +2146,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 57,
+        "cell_id": 51,
         "h3_index": "840c555ffffffff"
       },
       "geometry": {
@@ -2440,49 +2188,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 58,
-        "h3_index": "840c559ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -150.1186782575829,
-              60.98690985155964
-            ],
-            [
-              -150.5338929522851,
-              60.873004238298506
-            ],
-            [
-              -150.56077666665044,
-              60.65824045323594
-            ],
-            [
-              -150.17893575195293,
-              60.5578924923556
-            ],
-            [
-              -149.76785301506058,
-              60.67039575103327
-            ],
-            [
-              -149.7344937209555,
-              60.884636828097854
-            ],
-            [
-              -150.1186782575829,
-              60.98690985155964
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 59,
+        "cell_id": 52,
         "h3_index": "840c55dffffffff"
       },
       "geometry": {
@@ -2524,7 +2230,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 60,
+        "cell_id": 53,
         "h3_index": "840c581ffffffff"
       },
       "geometry": {
@@ -2566,7 +2272,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 61,
+        "cell_id": 54,
         "h3_index": "840c585ffffffff"
       },
       "geometry": {
@@ -2608,7 +2314,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 62,
+        "cell_id": 55,
         "h3_index": "840c587ffffffff"
       },
       "geometry": {
@@ -2650,7 +2356,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 63,
+        "cell_id": 56,
         "h3_index": "840c589ffffffff"
       },
       "geometry": {
@@ -2692,7 +2398,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 64,
+        "cell_id": 57,
         "h3_index": "840c58bffffffff"
       },
       "geometry": {
@@ -2734,7 +2440,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 65,
+        "cell_id": 58,
         "h3_index": "840c58dffffffff"
       },
       "geometry": {
@@ -2776,7 +2482,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 66,
+        "cell_id": 59,
         "h3_index": "840c5a1ffffffff"
       },
       "geometry": {
@@ -2818,7 +2524,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 67,
+        "cell_id": 60,
         "h3_index": "840c5a3ffffffff"
       },
       "geometry": {
@@ -2860,49 +2566,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 68,
-        "h3_index": "840c5a5ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -152.6777620275146,
-              57.75815795270958
-            ],
-            [
-              -153.03999908314532,
-              57.63893918528883
-            ],
-            [
-              -153.04573039804697,
-              57.433016265256626
-            ],
-            [
-              -152.6944453123346,
-              57.346601458660594
-            ],
-            [
-              -152.335131013674,
-              57.464426417580945
-            ],
-            [
-              -152.3241836255826,
-              57.67004928825195
-            ],
-            [
-              -152.6777620275146,
-              57.75815795270958
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 69,
+        "cell_id": 61,
         "h3_index": "840c5a7ffffffff"
       },
       "geometry": {
@@ -2944,7 +2608,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 70,
+        "cell_id": 62,
         "h3_index": "840c5a9ffffffff"
       },
       "geometry": {
@@ -2986,7 +2650,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 71,
+        "cell_id": 63,
         "h3_index": "840c5abffffffff"
       },
       "geometry": {
@@ -3028,7 +2692,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 72,
+        "cell_id": 64,
         "h3_index": "840c5adffffffff"
       },
       "geometry": {
@@ -3070,7 +2734,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 73,
+        "cell_id": 65,
         "h3_index": "840c5b5ffffffff"
       },
       "geometry": {
@@ -3112,7 +2776,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 74,
+        "cell_id": 66,
         "h3_index": "840c5bdffffffff"
       },
       "geometry": {
@@ -3154,7 +2818,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 75,
+        "cell_id": 67,
         "h3_index": "840c5c1ffffffff"
       },
       "geometry": {
@@ -3196,7 +2860,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 76,
+        "cell_id": 68,
         "h3_index": "840c5c3ffffffff"
       },
       "geometry": {
@@ -3238,7 +2902,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 77,
+        "cell_id": 69,
         "h3_index": "840c5c5ffffffff"
       },
       "geometry": {
@@ -3280,7 +2944,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 78,
+        "cell_id": 70,
         "h3_index": "840c5c7ffffffff"
       },
       "geometry": {
@@ -3322,7 +2986,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 79,
+        "cell_id": 71,
         "h3_index": "840c5c9ffffffff"
       },
       "geometry": {
@@ -3364,7 +3028,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 80,
+        "cell_id": 72,
         "h3_index": "840c5cbffffffff"
       },
       "geometry": {
@@ -3406,7 +3070,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 81,
+        "cell_id": 73,
         "h3_index": "840c5cdffffffff"
       },
       "geometry": {
@@ -3448,7 +3112,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 82,
+        "cell_id": 74,
         "h3_index": "840c5d5ffffffff"
       },
       "geometry": {
@@ -3490,7 +3154,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 83,
+        "cell_id": 75,
         "h3_index": "840c5ddffffffff"
       },
       "geometry": {
@@ -3532,7 +3196,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 84,
+        "cell_id": 76,
         "h3_index": "840c5e1ffffffff"
       },
       "geometry": {
@@ -3574,7 +3238,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 85,
+        "cell_id": 77,
         "h3_index": "840c5e3ffffffff"
       },
       "geometry": {
@@ -3616,7 +3280,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 86,
+        "cell_id": 78,
         "h3_index": "840c5e5ffffffff"
       },
       "geometry": {
@@ -3658,7 +3322,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 87,
+        "cell_id": 79,
         "h3_index": "840c5e7ffffffff"
       },
       "geometry": {
@@ -3700,7 +3364,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 88,
+        "cell_id": 80,
         "h3_index": "840c5e9ffffffff"
       },
       "geometry": {
@@ -3742,7 +3406,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 89,
+        "cell_id": 81,
         "h3_index": "840c5ebffffffff"
       },
       "geometry": {
@@ -3784,7 +3448,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 90,
+        "cell_id": 82,
         "h3_index": "840c5edffffffff"
       },
       "geometry": {
@@ -3826,7 +3490,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 91,
+        "cell_id": 83,
         "h3_index": "840c731ffffffff"
       },
       "geometry": {
@@ -3868,7 +3532,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 92,
+        "cell_id": 84,
         "h3_index": "840c733ffffffff"
       },
       "geometry": {
@@ -3910,7 +3574,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 93,
+        "cell_id": 85,
         "h3_index": "840c737ffffffff"
       },
       "geometry": {
@@ -3952,91 +3616,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 94,
-        "h3_index": "840c73bffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -149.20273854597704,
-              61.64242077629959
-            ],
-            [
-              -149.63104742661767,
-              61.53111591488148
-            ],
-            [
-              -149.6661049554237,
-              61.315000489412114
-            ],
-            [
-              -149.27961997343172,
-              61.210775477041565
-            ],
-            [
-              -148.85580761329132,
-              61.32069971069866
-            ],
-            [
-              -148.81400228348858,
-              61.53621681639824
-            ],
-            [
-              -149.20273854597704,
-              61.64242077629959
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 95,
-        "h3_index": "840cc13ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -158.3355054975293,
-              56.75696674404622
-            ],
-            [
-              -158.66945839896522,
-              56.62166355113321
-            ],
-            [
-              -158.63492181820084,
-              56.41707924779774
-            ],
-            [
-              -158.27139247929918,
-              56.34772488856732
-            ],
-            [
-              -157.93937651264355,
-              56.48145586745346
-            ],
-            [
-              -157.96894522054694,
-              56.68610276910639
-            ],
-            [
-              -158.3355054975293,
-              56.75696674404622
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 96,
+        "cell_id": 86,
         "h3_index": "840cc81ffffffff"
       },
       "geometry": {
@@ -4078,7 +3658,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 97,
+        "cell_id": 87,
         "h3_index": "840cc83ffffffff"
       },
       "geometry": {
@@ -4120,7 +3700,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 98,
+        "cell_id": 88,
         "h3_index": "840cc85ffffffff"
       },
       "geometry": {
@@ -4162,7 +3742,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 99,
+        "cell_id": 89,
         "h3_index": "840cc87ffffffff"
       },
       "geometry": {
@@ -4204,7 +3784,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 100,
+        "cell_id": 90,
         "h3_index": "840cc89ffffffff"
       },
       "geometry": {
@@ -4246,7 +3826,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 101,
+        "cell_id": 91,
         "h3_index": "840cc8bffffffff"
       },
       "geometry": {
@@ -4288,7 +3868,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 102,
+        "cell_id": 92,
         "h3_index": "840cc8dffffffff"
       },
       "geometry": {
@@ -4330,7 +3910,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 103,
+        "cell_id": 93,
         "h3_index": "840cc9dffffffff"
       },
       "geometry": {
@@ -4372,7 +3952,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 104,
+        "cell_id": 94,
         "h3_index": "840cca1ffffffff"
       },
       "geometry": {
@@ -4414,7 +3994,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 105,
+        "cell_id": 95,
         "h3_index": "840cca3ffffffff"
       },
       "geometry": {
@@ -4456,7 +4036,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 106,
+        "cell_id": 96,
         "h3_index": "840cca5ffffffff"
       },
       "geometry": {
@@ -4498,7 +4078,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 107,
+        "cell_id": 97,
         "h3_index": "840cca7ffffffff"
       },
       "geometry": {
@@ -4540,7 +4120,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 108,
+        "cell_id": 98,
         "h3_index": "840cca9ffffffff"
       },
       "geometry": {
@@ -4582,7 +4162,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 109,
+        "cell_id": 99,
         "h3_index": "840ccabffffffff"
       },
       "geometry": {
@@ -4624,7 +4204,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 110,
+        "cell_id": 100,
         "h3_index": "840ccadffffffff"
       },
       "geometry": {
@@ -4666,7 +4246,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 111,
+        "cell_id": 101,
         "h3_index": "840ccbdffffffff"
       },
       "geometry": {
@@ -4708,7 +4288,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 112,
+        "cell_id": 102,
         "h3_index": "840ccc1ffffffff"
       },
       "geometry": {
@@ -4750,7 +4330,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 113,
+        "cell_id": 103,
         "h3_index": "840ccc3ffffffff"
       },
       "geometry": {
@@ -4792,7 +4372,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 114,
+        "cell_id": 104,
         "h3_index": "840ccc5ffffffff"
       },
       "geometry": {
@@ -4834,7 +4414,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 115,
+        "cell_id": 105,
         "h3_index": "840ccc7ffffffff"
       },
       "geometry": {
@@ -4876,7 +4456,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 116,
+        "cell_id": 106,
         "h3_index": "840ccc9ffffffff"
       },
       "geometry": {
@@ -4918,7 +4498,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 117,
+        "cell_id": 107,
         "h3_index": "840cccbffffffff"
       },
       "geometry": {
@@ -4960,7 +4540,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 118,
+        "cell_id": 108,
         "h3_index": "840cccdffffffff"
       },
       "geometry": {
@@ -5002,7 +4582,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 119,
+        "cell_id": 109,
         "h3_index": "840ccd1ffffffff"
       },
       "geometry": {
@@ -5044,7 +4624,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 120,
+        "cell_id": 110,
         "h3_index": "840ccd3ffffffff"
       },
       "geometry": {
@@ -5086,7 +4666,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 121,
+        "cell_id": 111,
         "h3_index": "840ccd5ffffffff"
       },
       "geometry": {
@@ -5128,7 +4708,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 122,
+        "cell_id": 112,
         "h3_index": "840ccd7ffffffff"
       },
       "geometry": {
@@ -5170,7 +4750,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 123,
+        "cell_id": 113,
         "h3_index": "840ccd9ffffffff"
       },
       "geometry": {
@@ -5212,7 +4792,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 124,
+        "cell_id": 114,
         "h3_index": "840ccdbffffffff"
       },
       "geometry": {
@@ -5254,7 +4834,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 125,
+        "cell_id": 115,
         "h3_index": "840ccddffffffff"
       },
       "geometry": {
@@ -5296,7 +4876,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 126,
+        "cell_id": 116,
         "h3_index": "840cce1ffffffff"
       },
       "geometry": {
@@ -5338,7 +4918,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 127,
+        "cell_id": 117,
         "h3_index": "840cce3ffffffff"
       },
       "geometry": {
@@ -5380,7 +4960,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 128,
+        "cell_id": 118,
         "h3_index": "840cce5ffffffff"
       },
       "geometry": {
@@ -5422,7 +5002,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 129,
+        "cell_id": 119,
         "h3_index": "840cce7ffffffff"
       },
       "geometry": {
@@ -5464,7 +5044,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 130,
+        "cell_id": 120,
         "h3_index": "840cce9ffffffff"
       },
       "geometry": {
@@ -5506,7 +5086,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 131,
+        "cell_id": 121,
         "h3_index": "840ccebffffffff"
       },
       "geometry": {
@@ -5548,7 +5128,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 132,
+        "cell_id": 122,
         "h3_index": "840cd81ffffffff"
       },
       "geometry": {
@@ -5590,7 +5170,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 133,
+        "cell_id": 123,
         "h3_index": "840cd83ffffffff"
       },
       "geometry": {
@@ -5632,7 +5212,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 134,
+        "cell_id": 124,
         "h3_index": "840cd85ffffffff"
       },
       "geometry": {
@@ -5674,7 +5254,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 135,
+        "cell_id": 125,
         "h3_index": "840cd87ffffffff"
       },
       "geometry": {
@@ -5716,7 +5296,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 136,
+        "cell_id": 126,
         "h3_index": "840cd89ffffffff"
       },
       "geometry": {
@@ -5758,7 +5338,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 137,
+        "cell_id": 127,
         "h3_index": "840cd8bffffffff"
       },
       "geometry": {
@@ -5800,7 +5380,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 138,
+        "cell_id": 128,
         "h3_index": "840cd8dffffffff"
       },
       "geometry": {
@@ -5842,7 +5422,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 139,
+        "cell_id": 129,
         "h3_index": "840cd91ffffffff"
       },
       "geometry": {
@@ -5884,7 +5464,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 140,
+        "cell_id": 130,
         "h3_index": "840cd95ffffffff"
       },
       "geometry": {
@@ -5926,7 +5506,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 141,
+        "cell_id": 131,
         "h3_index": "840cd99ffffffff"
       },
       "geometry": {
@@ -5968,7 +5548,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 142,
+        "cell_id": 132,
         "h3_index": "840cd9bffffffff"
       },
       "geometry": {
@@ -6010,7 +5590,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 143,
+        "cell_id": 133,
         "h3_index": "840cd9dffffffff"
       },
       "geometry": {
@@ -6052,7 +5632,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 144,
+        "cell_id": 134,
         "h3_index": "840cda1ffffffff"
       },
       "geometry": {
@@ -6094,7 +5674,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 145,
+        "cell_id": 135,
         "h3_index": "840cda3ffffffff"
       },
       "geometry": {
@@ -6136,7 +5716,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 146,
+        "cell_id": 136,
         "h3_index": "840cda5ffffffff"
       },
       "geometry": {
@@ -6178,7 +5758,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 147,
+        "cell_id": 137,
         "h3_index": "840cda7ffffffff"
       },
       "geometry": {
@@ -6220,7 +5800,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 148,
+        "cell_id": 138,
         "h3_index": "840cda9ffffffff"
       },
       "geometry": {
@@ -6262,7 +5842,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 149,
+        "cell_id": 139,
         "h3_index": "840cdabffffffff"
       },
       "geometry": {
@@ -6304,7 +5884,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 150,
+        "cell_id": 140,
         "h3_index": "840cdadffffffff"
       },
       "geometry": {
@@ -6346,7 +5926,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 151,
+        "cell_id": 141,
         "h3_index": "840cdb9ffffffff"
       },
       "geometry": {
@@ -6388,7 +5968,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 152,
+        "cell_id": 142,
         "h3_index": "840cdbdffffffff"
       },
       "geometry": {
@@ -6430,7 +6010,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 153,
+        "cell_id": 143,
         "h3_index": "840cdd1ffffffff"
       },
       "geometry": {
@@ -6472,7 +6052,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 154,
+        "cell_id": 144,
         "h3_index": "840cdd3ffffffff"
       },
       "geometry": {
@@ -6514,7 +6094,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 155,
+        "cell_id": 145,
         "h3_index": "840cdd5ffffffff"
       },
       "geometry": {
@@ -6556,7 +6136,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 156,
+        "cell_id": 146,
         "h3_index": "840cdd7ffffffff"
       },
       "geometry": {
@@ -6598,7 +6178,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 157,
+        "cell_id": 147,
         "h3_index": "840cdd9ffffffff"
       },
       "geometry": {
@@ -6640,7 +6220,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 158,
+        "cell_id": 148,
         "h3_index": "840cddbffffffff"
       },
       "geometry": {
@@ -6682,7 +6262,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 159,
+        "cell_id": 149,
         "h3_index": "840cdddffffffff"
       },
       "geometry": {
@@ -6724,49 +6304,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 160,
-        "h3_index": "840cde3ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -163.26758517329634,
-              55.249377712314576
-            ],
-            [
-              -163.5688363073495,
-              55.10220364232413
-            ],
-            [
-              -163.42627005781162,
-              54.89109362563093
-            ],
-            [
-              -163.0623719769545,
-              54.83790166145665
-            ],
-            [
-              -162.8387562392216,
-              54.99522621596974
-            ],
-            [
-              -162.90084398105495,
-              55.1952462385966
-            ],
-            [
-              -163.26758517329634,
-              55.249377712314576
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 161,
+        "cell_id": 150,
         "h3_index": "840cde7ffffffff"
       },
       "geometry": {
@@ -6808,7 +6346,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 162,
+        "cell_id": 151,
         "h3_index": "840ce81ffffffff"
       },
       "geometry": {
@@ -6850,7 +6388,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 163,
+        "cell_id": 152,
         "h3_index": "840ce83ffffffff"
       },
       "geometry": {
@@ -6892,49 +6430,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 164,
-        "h3_index": "840ce85ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -155.94003007093687,
-              57.88830273803379
-            ],
-            [
-              -156.2949521449231,
-              57.75877613902346
-            ],
-            [
-              -156.2767191253314,
-              57.55101831882802
-            ],
-            [
-              -155.90891523479362,
-              57.47287244049571
-            ],
-            [
-              -155.55646862858862,
-              57.60086348390303
-            ],
-            [
-              -155.5693475012019,
-              57.8085246991965
-            ],
-            [
-              -155.94003007093687,
-              57.88830273803379
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 165,
+        "cell_id": 153,
         "h3_index": "840ce87ffffffff"
       },
       "geometry": {
@@ -6976,7 +6472,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 166,
+        "cell_id": 154,
         "h3_index": "840ce89ffffffff"
       },
       "geometry": {
@@ -7018,7 +6514,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 167,
+        "cell_id": 155,
         "h3_index": "840ce8bffffffff"
       },
       "geometry": {
@@ -7060,49 +6556,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 168,
-        "h3_index": "840ce91ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -153.75710565799747,
-              57.39750586725809
-            ],
-            [
-              -154.11196955391807,
-              57.27532324289462
-            ],
-            [
-              -154.10989923075988,
-              57.07007737702597
-            ],
-            [
-              -153.7580879971568,
-              56.98723185200699
-            ],
-            [
-              -153.40592725491868,
-              57.10798864683357
-            ],
-            [
-              -153.40287665971084,
-              57.313006138978444
-            ],
-            [
-              -153.75710565799747,
-              57.39750586725809
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 169,
+        "cell_id": 156,
         "h3_index": "840ce93ffffffff"
       },
       "geometry": {
@@ -7144,7 +6598,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 170,
+        "cell_id": 157,
         "h3_index": "840ce95ffffffff"
       },
       "geometry": {
@@ -7186,7 +6640,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 171,
+        "cell_id": 158,
         "h3_index": "840ce97ffffffff"
       },
       "geometry": {
@@ -7228,7 +6682,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 172,
+        "cell_id": 159,
         "h3_index": "840ce9bffffffff"
       },
       "geometry": {
@@ -7270,49 +6724,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 173,
-        "h3_index": "840ce9dffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -154.11620191656746,
-              57.68790014142719
-            ],
-            [
-              -154.47377413923263,
-              57.56426457288806
-            ],
-            [
-              -154.46903845166275,
-              57.357876646211274
-            ],
-            [
-              -154.11196955391807,
-              57.27532324289462
-            ],
-            [
-              -153.75710565799747,
-              57.39750586725809
-            ],
-            [
-              -153.75660365070593,
-              57.60368393524882
-            ],
-            [
-              -154.11620191656746,
-              57.68790014142719
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 174,
+        "cell_id": 160,
         "h3_index": "840cea3ffffffff"
       },
       "geometry": {
@@ -7354,49 +6766,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 175,
-        "h3_index": "840cea7ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -157.31795056452415,
-              57.1579018439398
-            ],
-            [
-              -157.6597585183113,
-              57.02510284659363
-            ],
-            [
-              -157.63209051307444,
-              56.81938767619328
-            ],
-            [
-              -157.26771179450404,
-              56.74646416732274
-            ],
-            [
-              -156.92805118733546,
-              56.8777083780695
-            ],
-            [
-              -156.9506161703515,
-              57.08342001185405
-            ],
-            [
-              -157.31795056452415,
-              57.1579018439398
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 176,
+        "cell_id": 161,
         "h3_index": "840ceabffffffff"
       },
       "geometry": {
@@ -7438,49 +6808,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 177,
-        "h3_index": "840ceadffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -157.3961161184247,
-              57.780298850314765
-            ],
-            [
-              -157.74522562692317,
-              57.646441058878196
-            ],
-            [
-              -157.71631702015358,
-              57.43863153887537
-            ],
-            [
-              -157.3436231955812,
-              57.364670752282834
-            ],
-            [
-              -156.99674430098528,
-              57.496942825224494
-            ],
-            [
-              -157.0203222604942,
-              57.704750113837434
-            ],
-            [
-              -157.3961161184247,
-              57.780298850314765
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 178,
+        "cell_id": 162,
         "h3_index": "840ceb1ffffffff"
       },
       "geometry": {
@@ -7522,7 +6850,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 179,
+        "cell_id": 163,
         "h3_index": "840ceb3ffffffff"
       },
       "geometry": {
@@ -7564,7 +6892,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 180,
+        "cell_id": 164,
         "h3_index": "840ceb5ffffffff"
       },
       "geometry": {
@@ -7606,7 +6934,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 181,
+        "cell_id": 165,
         "h3_index": "840ceb7ffffffff"
       },
       "geometry": {
@@ -7648,7 +6976,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 182,
+        "cell_id": 166,
         "h3_index": "840ceb9ffffffff"
       },
       "geometry": {
@@ -7690,7 +7018,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 183,
+        "cell_id": 167,
         "h3_index": "840cebbffffffff"
       },
       "geometry": {
@@ -7732,7 +7060,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 184,
+        "cell_id": 168,
         "h3_index": "840cebdffffffff"
       },
       "geometry": {
@@ -7774,49 +7102,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 185,
-        "h3_index": "840cec9ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -154.5143249811049,
-              59.2401811035615
-            ],
-            [
-              -154.89132427922988,
-              59.11356943692485
-            ],
-            [
-              -154.88308736214168,
-              58.90193186285057
-            ],
-            [
-              -154.50371911506068,
-              58.81709688579071
-            ],
-            [
-              -154.12968375172062,
-              58.942171379899285
-            ],
-            [
-              -154.13205318570627,
-              59.15360594881128
-            ],
-            [
-              -154.5143249811049,
-              59.2401811035615
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 186,
+        "cell_id": 169,
         "h3_index": "840ced1ffffffff"
       },
       "geometry": {
@@ -7858,49 +7144,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 187,
-        "h3_index": "840ced3ffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -153.02827990062457,
-              58.05284854505279
-            ],
-            [
-              -153.39345269063742,
-              57.93220853728432
-            ],
-            [
-              -153.39664038196017,
-              57.72511793984855
-            ],
-            [
-              -153.03999908314532,
-              57.63893918528883
-            ],
-            [
-              -152.6777620275146,
-              57.75815795270958
-            ],
-            [
-              -152.66923445438113,
-              57.964965747413096
-            ],
-            [
-              -153.02827990062457,
-              58.05284854505279
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 188,
+        "cell_id": 170,
         "h3_index": "840ced5ffffffff"
       },
       "geometry": {
@@ -7942,7 +7186,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 189,
+        "cell_id": 171,
         "h3_index": "840ced7ffffffff"
       },
       "geometry": {
@@ -7984,7 +7228,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 190,
+        "cell_id": 172,
         "h3_index": "840ced9ffffffff"
       },
       "geometry": {
@@ -8026,7 +7270,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 191,
+        "cell_id": 173,
         "h3_index": "840cedbffffffff"
       },
       "geometry": {
@@ -8068,7 +7312,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 192,
+        "cell_id": 174,
         "h3_index": "840ceddffffffff"
       },
       "geometry": {
@@ -8110,7 +7354,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 193,
+        "cell_id": 175,
         "h3_index": "841db41ffffffff"
       },
       "geometry": {
@@ -8152,7 +7396,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 194,
+        "cell_id": 176,
         "h3_index": "841db45ffffffff"
       },
       "geometry": {
@@ -8194,7 +7438,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 195,
+        "cell_id": 177,
         "h3_index": "841db49ffffffff"
       },
       "geometry": {
@@ -8236,7 +7480,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 196,
+        "cell_id": 178,
         "h3_index": "841db4dffffffff"
       },
       "geometry": {
@@ -8278,7 +7522,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 197,
+        "cell_id": 179,
         "h3_index": "841db61ffffffff"
       },
       "geometry": {
@@ -8320,7 +7564,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 198,
+        "cell_id": 180,
         "h3_index": "841db63ffffffff"
       },
       "geometry": {
@@ -8362,7 +7606,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 199,
+        "cell_id": 181,
         "h3_index": "841db65ffffffff"
       },
       "geometry": {
@@ -8404,7 +7648,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 200,
+        "cell_id": 182,
         "h3_index": "841db67ffffffff"
       },
       "geometry": {
@@ -8446,7 +7690,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 201,
+        "cell_id": 183,
         "h3_index": "841db69ffffffff"
       },
       "geometry": {
@@ -8488,7 +7732,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 202,
+        "cell_id": 184,
         "h3_index": "841db6bffffffff"
       },
       "geometry": {
@@ -8530,7 +7774,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 203,
+        "cell_id": 185,
         "h3_index": "841db6dffffffff"
       },
       "geometry": {
@@ -8572,7 +7816,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 204,
+        "cell_id": 186,
         "h3_index": "8422c47ffffffff"
       },
       "geometry": {
@@ -8614,7 +7858,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 205,
+        "cell_id": 187,
         "h3_index": "8422c6bffffffff"
       },
       "geometry": {
@@ -8656,7 +7900,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 206,
+        "cell_id": 188,
         "h3_index": "8422d01ffffffff"
       },
       "geometry": {
@@ -8698,7 +7942,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 207,
+        "cell_id": 189,
         "h3_index": "8422d05ffffffff"
       },
       "geometry": {
@@ -8740,7 +7984,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 208,
+        "cell_id": 190,
         "h3_index": "8422d09ffffffff"
       },
       "geometry": {
@@ -8782,7 +8026,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 209,
+        "cell_id": 191,
         "h3_index": "8422d0bffffffff"
       },
       "geometry": {
@@ -8824,7 +8068,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 210,
+        "cell_id": 192,
         "h3_index": "8422d0dffffffff"
       },
       "geometry": {
@@ -8866,7 +8110,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 211,
+        "cell_id": 193,
         "h3_index": "8422d29ffffffff"
       },
       "geometry": {
@@ -8908,49 +8152,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 212,
-        "h3_index": "8422d2dffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -164.31043846063827,
-              54.248942192809636
-            ],
-            [
-              -164.09082980729946,
-              54.41093893289734
-            ],
-            [
-              -164.23559585048218,
-              54.622641592925206
-            ],
-            [
-              -164.6027529444594,
-              54.67233985458572
-            ],
-            [
-              -164.82280119053172,
-              54.5097526995164
-            ],
-            [
-              -164.67526396378526,
-              54.29806018449295
-            ],
-            [
-              -164.31043846063827,
-              54.248942192809636
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 213,
+        "cell_id": 194,
         "h3_index": "8422d43ffffffff"
       },
       "geometry": {
@@ -8992,7 +8194,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 214,
+        "cell_id": 195,
         "h3_index": "8422d51ffffffff"
       },
       "geometry": {
@@ -9034,7 +8236,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 215,
+        "cell_id": 196,
         "h3_index": "8422d55ffffffff"
       },
       "geometry": {
@@ -9076,7 +8278,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 216,
+        "cell_id": 197,
         "h3_index": "8422d59ffffffff"
       },
       "geometry": {
@@ -9118,49 +8320,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 217,
-        "h3_index": "8422d5bffffffff"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -167.860417357199,
-              53.12254022334695
-            ],
-            [
-              -167.65041968370576,
-              53.29612815220871
-            ],
-            [
-              -167.81047176967914,
-              53.508078757198085
-            ],
-            [
-              -168.18307107256248,
-              53.54632424678596
-            ],
-            [
-              -168.39314827197728,
-              53.37210182891544
-            ],
-            [
-              -168.23056008684011,
-              53.160270520281635
-            ],
-            [
-              -167.860417357199,
-              53.12254022334695
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": 218,
+        "cell_id": 198,
         "h3_index": "8422d5dffffffff"
       },
       "geometry": {
@@ -9202,7 +8362,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 219,
+        "cell_id": 199,
         "h3_index": "8422d61ffffffff"
       },
       "geometry": {
@@ -9244,7 +8404,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 220,
+        "cell_id": 200,
         "h3_index": "8422d63ffffffff"
       },
       "geometry": {
@@ -9286,7 +8446,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 221,
+        "cell_id": 201,
         "h3_index": "8422d65ffffffff"
       },
       "geometry": {
@@ -9328,7 +8488,7 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": 222,
+        "cell_id": 202,
         "h3_index": "8422d67ffffffff"
       },
       "geometry": {

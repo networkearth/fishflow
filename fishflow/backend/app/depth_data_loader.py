@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime, date, timedelta
-import h5py
+import pandas as pd
 from app.depth_models import (
     DepthScenarioSummary,
 )
@@ -128,6 +128,67 @@ class DepthDataLoader:
 
         except Exception as e:
             print(f"Unexpected error processing geometries for {scenario_id}: {e}")
+            return None
+
+    def get_occupancy_data(
+        self, scenario_id: str, month: str, depth_bin: int
+    ) -> Optional[dict]:
+        """Load occupancy data for a specific scenario, month, and depth bin"""
+        scenario = self.get_scenario_by_id(scenario_id)
+        if not scenario:
+            return None
+
+        # Parse month (expecting format like "2024-01-01" for January 2024)
+        try:
+            month_date = datetime.strptime(month, "%Y-%m-%d").date()
+            month_str = month_date.strftime("%Y-%m")  # Convert to "2024-01" format
+        except ValueError:
+            print(f"Invalid month format: {month}. Expected YYYY-MM-DD")
+            return None
+
+        # Construct file path
+        parquet_file = self.data_dir / scenario_id / f"{month_str}.parquet.gz"
+        if not parquet_file.exists():
+            print(f"Occupancy data file not found: {parquet_file}")
+            return None
+
+        try:
+            # Load parquet file
+            df = pd.read_parquet(parquet_file)
+
+            # Filter by depth bin
+            df_filtered = df[df["depth_bin"] == depth_bin].copy()
+
+            if df_filtered.empty:
+                print(f"No data found for depth bin {depth_bin} in {month_str}")
+                return None
+
+            df_filtered["timestamp"] = pd.to_datetime(df_filtered["timestamp"])
+
+            # Get unique timestamps (sorted)
+            timestamps = sorted(
+                df_filtered["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%S%z").unique()
+            )
+
+            # Pivot to get 2D array structure: [timestamp][cell]
+            pivot_df = df_filtered.pivot(
+                index="timestamp", columns="cell_id", values="probability"
+            )
+
+            # Convert to list of lists (timestamps × cells)
+            probabilities = pivot_df.values.tolist()
+
+            return {
+                "scenario_id": scenario_id,
+                "month": month,
+                "depth_bin": depth_bin,
+                "data": {"timestamps": timestamps, "probabilities": probabilities},
+            }
+
+        except Exception as e:
+            print(
+                f"Error loading occupancy data for {scenario_id}, {month_str}, depth {depth_bin}: {e}"
+            )
             return None
 
 
