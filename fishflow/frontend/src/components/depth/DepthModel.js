@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './DepthModel.css';
 import DepthScenarioSelector from './DepthScenarioSelector';
+import FilterPanels from './FilterPanels';
+import { loadRequiredData } from './depthDataLoader';
 
 const DepthModel = ({ onNavigate }) => {
   // Core state for the depth model
@@ -8,17 +10,109 @@ const DepthModel = ({ onNavigate }) => {
   const [selectedCell, setSelectedCell] = useState(null);
   const [tolerance, setTolerance] = useState(0.05);
 
-  // Filter states
-  const [selectedDepthBins, setSelectedDepthBins] = useState([]);
-  const [dateRange, setDateRange] = useState({ start: null, end: null });
-  const [timeOfDay, setTimeOfDay] = useState([]);
+  const [filterState, setFilterState] = useState({
+    depthBins: {},  // Changed to object format for new depth filter
+    dateRange: { start: null, end: null },
+    timeOfDay: [{ start: '00:00', end: '23:59' }]  // Default to full day
+  });
+
+  // Data loading states
+  const [loadedData, setLoadedData] = useState({});
+  const [geometries, setGeometries] = useState(null);
+  const [loadingProgress, setLoadingProgress] = useState({ loaded: 0, total: 0, isLoading: false });
+  const [dataError, setDataError] = useState(null);
+  const [geometryError, setGeometryError] = useState(null);
+
+  // Handle filter changes and trigger data loading
+  const handleFiltersChange = async (newFilters) => {
+    setFilterState(newFilters);
+    
+    if (!currentScenario) {
+      console.log('No scenario selected, skipping data load');
+      return;
+    }
+
+    setLoadingProgress(prev => ({ ...prev, isLoading: true }));
+    setDataError(null);
+
+    try {
+      console.log('Loading data for filters:', newFilters);
+      
+      const newData = await loadRequiredData(
+        currentScenario.scenario_id,
+        newFilters,
+        loadedData,
+        (loaded, total) => {
+          setLoadingProgress({ loaded, total, isLoading: true });
+        }
+      );
+      
+      // Merge new data with existing
+      setLoadedData(prev => ({ ...prev, ...newData }));
+      
+      console.log(`Loaded ${Object.keys(newData).length} new data chunks`);
+      
+    } catch (error) {
+      console.error('Error loading data:', error);
+      setDataError(error.message);
+    } finally {
+      setLoadingProgress(prev => ({ ...prev, isLoading: false }));
+    }
+  };
+
+  // Handle scenario changes
+  const handleScenarioChange = async (scenario) => {
+    setCurrentScenario(scenario);
+    
+    // Reset data when scenario changes
+    setLoadedData({});
+    setGeometries(null);
+    setLoadingProgress({ loaded: 0, total: 0, isLoading: false });
+    setDataError(null);
+    setGeometryError(null);
+    
+    if (!scenario) return;
+    
+    // Set default date range to scenario's time window
+    if (scenario.time_window && scenario.time_window.length >= 2) {
+      setFilterState(prev => ({
+        ...prev,
+        dateRange: {
+          start: scenario.time_window[0],
+          end: scenario.time_window[1]
+        }
+      }));
+    }
+    
+    // Load geometries for this scenario
+    try {
+      console.log(`Loading geometries for scenario: ${scenario.scenario_id}`);
+      
+      const response = await fetch(
+        `http://localhost:8000/v1/depth/scenario/${scenario.scenario_id}/geometries`
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Failed to load geometries: ${response.status}`);
+      }
+      
+      const geometryData = await response.json();
+      setGeometries(geometryData.geometries);
+      
+      console.log(`Loaded ${geometryData.geometries.length} geometries`);
+      
+    } catch (error) {
+      console.error('Error loading geometries:', error);
+      setGeometryError(error.message);
+    }
+  };
 
   return (
     <div className="depth-model">
         {/* Left Sidebar - Scenario Selection */}
         <div className="scenario-sidebar">
             <DepthScenarioSelector 
-                onScenarioLoad={setCurrentScenario} 
+                onScenarioLoad={handleScenarioChange} 
                 currentScenario={currentScenario} 
             />
         </div>
@@ -29,15 +123,47 @@ const DepthModel = ({ onNavigate }) => {
         <div className="map-panel">
           <div className="panel-header">
             <h3>Minimum Risk by H3 Cell</h3>
-            <button onClick={() => onNavigate('home')} className="back-button">
-                ← Home
-            </button>
+            <div className="panel-header-controls">
+              {loadingProgress.isLoading && (
+                <div className="loading-indicator">
+                  Loading: {loadingProgress.loaded}/{loadingProgress.total} chunks
+                </div>
+              )}
+              <button onClick={() => onNavigate('home')} className="back-button">
+                  ← Home
+              </button>
+            </div>
           </div>
           <div className="map-container">
             {/* Placeholder for depth map */}
             <div className="map-placeholder">
               <p>Main risk map will be displayed here</p>
               <p>H3 cells showing minimum risk values</p>
+              
+              {geometryError && (
+                <div className="error-message">
+                  <p>Error loading geometries: {geometryError}</p>
+                </div>
+              )}
+              
+              {dataError && (
+                <div className="error-message">
+                  <p>Error loading data: {dataError}</p>
+                </div>
+              )}
+              
+              {geometries && (
+                <div className="geometry-status">
+                  <p>Loaded {geometries.length} cell geometries</p>
+                </div>
+              )}
+              
+              {Object.keys(loadedData).length > 0 && (
+                <div className="data-status">
+                  <p>Loaded {Object.keys(loadedData).length} data chunks</p>
+                </div>
+              )}
+              
               {selectedCell && (
                 <p>Selected cell: {selectedCell}</p>
               )}
@@ -80,50 +206,13 @@ const DepthModel = ({ onNavigate }) => {
       </div>
 
       {/* Right Sidebar - Filter Panels */}
-      <div className="filter-sidebar">
-        <div className="sidebar-header">
-          <h3>Filters</h3>
-        </div>
-
-        {/* Depth Filter Panel */}
-        <div className="filter-panel depth-filter-panel">
-          <div className="filter-header">
-            <h4>Depth Selection</h4>
-            <span className="expand-icon">▼</span>
-          </div>
-          <div className="filter-content">
-            <div className="depth-placeholder">
-              <p>Depth bin selection will go here</p>
-              <p>Interactive depth bin selector (0-500m, 10 bins)</p>
-              <div className="apply-button-placeholder">
-                <button className="apply-button">Apply Filters</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Date Range Filter Panel */}
-        <div className="filter-panel date-filter-panel collapsed">
-          <div className="filter-header">
-            <h4>Date Range</h4>
-            <span className="expand-icon">▶</span>
-          </div>
-          <div className="filter-summary">
-            Jan 1 - Dec 31, 2024
-          </div>
-        </div>
-
-        {/* Time of Day Filter Panel */}
-        <div className="filter-panel time-filter-panel collapsed">
-          <div className="filter-header">
-            <h4>Time of Day</h4>
-            <span className="expand-icon">▶</span>
-          </div>
-          <div className="filter-summary">
-            6:00-10:00, 18:00-22:00
-          </div>
-        </div>
-      </div>
+      <FilterPanels 
+        scenario={currentScenario}
+        selectedDepthBins={filterState.depthBins}
+        dateRange={filterState.dateRange}
+        timeOfDay={filterState.timeOfDay}
+        onFiltersChange={handleFiltersChange}
+      />
     </div>
   );
 };
