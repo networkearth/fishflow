@@ -64,13 +64,21 @@ const generateChunkKeys = (scenarioId, months, depthBins) => {
  * @param {Object} loadedChunks - Set/Object tracking what's already loaded
  * @returns {Array} - [{month, depth}, ...] for chunks that need loading
  */
+/**
+ * Determine which chunks need to be loaded
+ * @param {string} scenarioId
+ * @param {Array} months
+ * @param {Array} depthBins
+ * @param {Object} loadedChunks - Nested structure: {month: {depth: data}}
+ * @returns {Array} - [{month, depth}, ...] for chunks that need loading
+ */
 const getMissingChunks = (scenarioId, months, depthBins, loadedChunks) => {
   const missing = [];
   
   months.forEach(month => {
     depthBins.forEach(depth => {
-      const key = `${scenarioId}_${month}_${depth}`;
-      if (!loadedChunks[key]) {
+      // Check if this month/depth combination exists in loaded data
+      if (!loadedChunks[month] || !loadedChunks[month][depth]) {
         missing.push({ month, depth });
       }
     });
@@ -96,7 +104,15 @@ const loadDataChunk = async (scenarioId, month, depth) => {
       throw new Error(`Failed to load data for ${month}, depth ${depth}: ${response.status}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    
+    // Return in nested structure: {month: {depth: cellData}}
+    return {
+      month,
+      depth, 
+      cellData: data.data.cells,  // Extract just the cells object
+      timestamps: data.data.timestamps
+    };
   } catch (error) {
     console.error(`Error loading chunk ${scenarioId}_${month}_${depth}:`, error);
     throw error;
@@ -114,7 +130,6 @@ const loadDataChunks = async (scenarioId, chunks, onProgress = null) => {
   const results = {};
   let loaded = 0;
   
-  // Load chunks in parallel but with some concurrency limit
   const concurrency = 3;
   
   for (let i = 0; i < chunks.length; i += concurrency) {
@@ -122,26 +137,26 @@ const loadDataChunks = async (scenarioId, chunks, onProgress = null) => {
     
     const batchPromises = batch.map(async ({ month, depth }) => {
       try {
-        const data = await loadDataChunk(scenarioId, month, depth);
-        const key = `${scenarioId}_${month}_${depth}`;
-        results[key] = data;
-        loaded++;
+        const { month: m, depth: d, cellData, timestamps } = await loadDataChunk(scenarioId, month, depth);
         
-        if (onProgress) {
-          onProgress(loaded, chunks.length);
+        // Structure: loadedData[month][depth] = {cells: {...}, timestamps: [...]}
+        if (!results[m]) {
+          results[m] = {};
         }
+        results[m][d] = {
+          cells: cellData,
+          timestamps: timestamps
+        };
         
-        return { key, success: true };
+        loaded++;
+        if (onProgress) onProgress(loaded, chunks.length);
+        
+        return { success: true };
       } catch (error) {
-        const key = `${scenarioId}_${month}_${depth}`;
-        console.error(`Failed to load chunk ${key}:`, error);
+        console.error(`Failed to load chunk ${month}_${depth}:`, error);
         loaded++;
-        
-        if (onProgress) {
-          onProgress(loaded, chunks.length);
-        }
-        
-        return { key, success: false, error };
+        if (onProgress) onProgress(loaded, chunks.length);
+        return { success: false, error };
       }
     });
     
@@ -173,7 +188,7 @@ const loadRequiredData = async (scenarioId, filterState, currentData, onProgress
     return {};
   }
   
-  // Find missing chunks
+  // Find missing chunks using the nested structure
   const missingChunks = getMissingChunks(scenarioId, requiredMonths, requiredDepthBins, currentData);
   
   if (missingChunks.length === 0) {

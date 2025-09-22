@@ -165,30 +165,68 @@ class DepthDataLoader:
 
             df_filtered["timestamp"] = pd.to_datetime(df_filtered["timestamp"])
 
-            # Get unique timestamps (sorted)
-            timestamps = sorted(
-                df_filtered["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%S%z").unique()
-            )
+            # Get unique timestamps (sorted) for reference
+            timestamps = sorted(df_filtered["timestamp"].unique())
+            timestamp_strings = [
+                ts.strftime("%Y-%m-%dT%H:%M:%S%z") for ts in timestamps
+            ]
 
-            # Pivot to get 2D array structure: [timestamp][cell]
-            pivot_df = df_filtered.pivot(
-                index="timestamp", columns="cell_id", values="probability"
-            )
+            # Group by cell_id and create ordered probability lists
+            cell_data = {}
+            for cell_id, cell_group in df_filtered.groupby("cell_id"):
+                # Sort by timestamp to ensure correct order
+                cell_group_sorted = cell_group.sort_values("timestamp")
 
-            # Convert to list of lists (timestamps × cells)
-            probabilities = pivot_df.values.tolist()
+                # Create probability list in timestamp order
+                probabilities = cell_group_sorted["probability"].tolist()
+                cell_data[int(cell_id)] = probabilities
 
             return {
                 "scenario_id": scenario_id,
                 "month": month,
                 "depth_bin": depth_bin,
-                "data": {"timestamps": timestamps, "probabilities": probabilities},
+                "data": {"timestamps": timestamp_strings, "cells": cell_data},
             }
 
         except Exception as e:
             print(
                 f"Error loading occupancy data for {scenario_id}, {month_str}, depth {depth_bin}: {e}"
             )
+            return None
+
+    def get_cell_max_depths(self, scenario_id: str) -> Optional[dict]:
+        """Load cell maximum depths for a scenario"""
+        scenario = self.get_scenario_by_id(scenario_id)
+        if not scenario:
+            return None
+
+        # Construct file path
+        cell_depths_file = self.data_dir / scenario_id / "cell_depths.json"
+        if not cell_depths_file.exists():
+            print(f"Cell depths file not found: {cell_depths_file}")
+            return None
+
+        try:
+            with open(cell_depths_file, "r") as f:
+                cell_depths_data = json.load(f)
+
+            # Validate that it's a list/array
+            if not isinstance(cell_depths_data, list):
+                print(
+                    f"Invalid cell depths format: expected array, got {type(cell_depths_data)}"
+                )
+                return None
+
+            return {"scenario_id": scenario_id, "cell_max_depths": cell_depths_data}
+
+        except json.JSONDecodeError as e:
+            print(f"Invalid JSON in cell depths file for {scenario_id}: {e}")
+            return None
+        except IOError as e:
+            print(f"Error reading cell depths file for {scenario_id}: {e}")
+            return None
+        except Exception as e:
+            print(f"Unexpected error loading cell depths for {scenario_id}: {e}")
             return None
 
 

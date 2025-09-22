@@ -1,0 +1,68 @@
+/* GeometryMap.css */
+
+.geometry-map-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 400px;
+}
+
+.no-scenario-message,
+.loading-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6b7280;
+  font-size: 1rem;
+  text-align: center;
+  background-color: #f9fafb;
+}
+
+.selection-info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0.75rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.clear-selection {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clear-selection:hover {
+  background: #dc2626;
+}
+
+/* Leaflet map styling */
+.leaflet-container {
+  background-color: #f8f9fa;
+  font-family: inherit;
+}
+
+.leaflet-control-zoom {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-control-zoom a {
+  background-color: white;
+  border: none;
+  color: #374151;
+}

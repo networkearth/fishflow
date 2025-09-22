@@ -5,7 +5,7 @@ import ModelCard from '../ModelCard';
 const DepthModelCard = ({ onNavigate }) => {
   const cardConfig = {
     title: "Depth Occupancy Model",
-    subtitle: "Real-time depth analysis",
+    subtitle: "Depth occupancy analysis",
     icon: Layers,
     colorScheme: "green",
     features: [
@@ -17,14 +17,12 @@ const DepthModelCard = ({ onNavigate }) => {
       {
         icon: Clock,
         title: "Hourly Resolution",
-        description: "Real-time risk assessment with hourly granularity for immediate decisions"
+        description: "Inform the when of bycatch avoidance."
       }
     ],
     keyFeatures: [
-      "Multi-depth occupancy tracking",
-      "Hourly risk assessment",
-      "Minimum risk optimization", 
-      "Time-of-day filtering"
+      "Depth occupancy predictions",
+      "Hourly resolution",
     ],
     navigationTarget: "depth"
   };

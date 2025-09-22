@@ -174,7 +174,7 @@
 
 /* Right Sidebar - Filter Panels */
 .filter-sidebar {
-  flex: 0 0 300px;
+  flex: 0 0 200;
   background: white;
   display: flex;
   flex-direction: column;
@@ -301,4 +301,28 @@
     flex-direction: column;
     gap: 0.25rem;
   }
+}
+
+.panel-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loading-indicator {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+  min-height: 400px; /* Fallback height */
+}
+
+.risk-map-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 400px; /* Ensure minimum height */
 }

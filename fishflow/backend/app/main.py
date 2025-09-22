@@ -191,6 +191,29 @@ async def get_occupancy_data(
     return occupancy_data
 
 
+@app.get("/v1/depth/scenario/{scenario_id}/cell-depths")
+async def get_cell_max_depths(scenario_id: str):
+    """Get maximum depth for each cell in the scenario"""
+
+    # Validate scenario exists
+    scenario = depth_data_loader.get_scenario_by_id(scenario_id)
+    if not scenario:
+        raise HTTPException(
+            status_code=404, detail=f"Scenario '{scenario_id}' not found"
+        )
+
+    # Load cell depths data
+    cell_depths_data = depth_data_loader.get_cell_max_depths(scenario_id)
+
+    if not cell_depths_data:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Cell depths data not found for scenario '{scenario_id}'",
+        )
+
+    return cell_depths_data
+
+
 @app.get("/")
 async def root():
     """Health check endpoint"""

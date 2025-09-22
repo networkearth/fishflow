@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './DepthModel.css';
 import DepthScenarioSelector from './DepthScenarioSelector';
 import FilterPanels from './FilterPanels';
+import MinimumRiskMap from './MinimumRiskMap';
+import RiskTimeSeries from './RiskTimeSeries';
 import { loadRequiredData } from './depthDataLoader';
 
 const DepthModel = ({ onNavigate }) => {
@@ -22,6 +24,8 @@ const DepthModel = ({ onNavigate }) => {
   const [loadingProgress, setLoadingProgress] = useState({ loaded: 0, total: 0, isLoading: false });
   const [dataError, setDataError] = useState(null);
   const [geometryError, setGeometryError] = useState(null);
+
+  const [cellMaxDepths, setCellMaxDepths] = useState(null);
 
   // Handle filter changes and trigger data loading
   const handleFiltersChange = async (newFilters) => {
@@ -48,7 +52,19 @@ const DepthModel = ({ onNavigate }) => {
       );
       
       // Merge new data with existing
-      setLoadedData(prev => ({ ...prev, ...newData }));
+      setLoadedData(prev => {
+        const merged = { ...prev };
+        
+        // Merge the nested structure
+        Object.keys(newData).forEach(month => {
+          if (!merged[month]) merged[month] = {};
+          Object.keys(newData[month]).forEach(depth => {
+            merged[month][depth] = newData[month][depth];
+          });
+        });
+        
+        return merged;
+      });
       
       console.log(`Loaded ${Object.keys(newData).length} new data chunks`);
       
@@ -61,51 +77,62 @@ const DepthModel = ({ onNavigate }) => {
   };
 
   // Handle scenario changes
-  const handleScenarioChange = async (scenario) => {
-    setCurrentScenario(scenario);
-    
-    // Reset data when scenario changes
-    setLoadedData({});
-    setGeometries(null);
-    setLoadingProgress({ loaded: 0, total: 0, isLoading: false });
-    setDataError(null);
-    setGeometryError(null);
-    
-    if (!scenario) return;
-    
-    // Set default date range to scenario's time window
-    if (scenario.time_window && scenario.time_window.length >= 2) {
-      setFilterState(prev => ({
-        ...prev,
-        dateRange: {
-          start: scenario.time_window[0],
-          end: scenario.time_window[1]
-        }
-      }));
-    }
-    
-    // Load geometries for this scenario
-    try {
-      console.log(`Loading geometries for scenario: ${scenario.scenario_id}`);
-      
-      const response = await fetch(
-        `http://localhost:8000/v1/depth/scenario/${scenario.scenario_id}/geometries`
-      );
-      
-      if (!response.ok) {
-        throw new Error(`Failed to load geometries: ${response.status}`);
+const handleScenarioChange = async (scenario) => {
+  setCurrentScenario(scenario);
+  
+  // Reset data when scenario changes
+  setLoadedData({});
+  setGeometries(null);
+  setCellMaxDepths(null); // Add this line
+  setLoadingProgress({ loaded: 0, total: 0, isLoading: false });
+  setDataError(null);
+  setGeometryError(null);
+  
+  if (!scenario) return;
+  
+  // Set default date range to scenario's time window
+  if (scenario.time_window && scenario.time_window.length >= 2) {
+    setFilterState(prev => ({
+      ...prev,
+      dateRange: {
+        start: scenario.time_window[0],
+        end: scenario.time_window[1]
       }
-      
-      const geometryData = await response.json();
-      setGeometries(geometryData.geometries);
-      
-      console.log(`Loaded ${geometryData.geometries.length} geometries`);
-      
-    } catch (error) {
-      console.error('Error loading geometries:', error);
-      setGeometryError(error.message);
+    }));
+  }
+  
+  // Load geometries and cell depths in parallel
+  try {
+    console.log(`Loading geometries and cell depths for scenario: ${scenario.scenario_id}`);
+    
+    const [geometryResponse, cellDepthsResponse] = await Promise.all([
+      fetch(`http://localhost:8000/v1/depth/scenario/${scenario.scenario_id}/geometries`),
+      fetch(`http://localhost:8000/v1/depth/scenario/${scenario.scenario_id}/cell-depths`)
+    ]);
+    
+    if (!geometryResponse.ok) {
+      throw new Error(`Failed to load geometries: ${geometryResponse.status}`);
     }
-  };
+    
+    if (!cellDepthsResponse.ok) {
+      throw new Error(`Failed to load cell depths: ${cellDepthsResponse.status}`);
+    }
+    
+    const [geometryData, cellDepthsData] = await Promise.all([
+      geometryResponse.json(),
+      cellDepthsResponse.json()
+    ]);
+    
+    setGeometries(geometryData.geometries);
+    setCellMaxDepths(cellDepthsData.cell_max_depths);
+    
+    console.log(`Loaded ${geometryData.geometries.length} geometries and ${cellDepthsData.cell_max_depths.length} cell depths`);
+    
+  } catch (error) {
+    console.error('Error loading scenario data:', error);
+    setGeometryError(error.message);
+  }
+};
 
   return (
     <div className="depth-model">
@@ -135,39 +162,27 @@ const DepthModel = ({ onNavigate }) => {
             </div>
           </div>
           <div className="map-container">
-            {/* Placeholder for depth map */}
-            <div className="map-placeholder">
-              <p>Main risk map will be displayed here</p>
-              <p>H3 cells showing minimum risk values</p>
-              
-              {geometryError && (
-                <div className="error-message">
-                  <p>Error loading geometries: {geometryError}</p>
-                </div>
-              )}
-              
-              {dataError && (
-                <div className="error-message">
-                  <p>Error loading data: {dataError}</p>
-                </div>
-              )}
-              
-              {geometries && (
-                <div className="geometry-status">
-                  <p>Loaded {geometries.length} cell geometries</p>
-                </div>
-              )}
-              
-              {Object.keys(loadedData).length > 0 && (
-                <div className="data-status">
-                  <p>Loaded {Object.keys(loadedData).length} data chunks</p>
-                </div>
-              )}
-              
-              {selectedCell && (
-                <p>Selected cell: {selectedCell}</p>
-              )}
-            </div>
+            <MinimumRiskMap
+              geometries={geometries}
+              loadedData={loadedData}
+              filterState={filterState}
+              scenario={currentScenario}
+              cellMaxDepths={cellMaxDepths}
+              selectedCell={selectedCell}
+              onCellSelect={setSelectedCell}
+            />
+            
+            {geometryError && (
+              <div className="error-message">
+                <p>Error loading geometries: {geometryError}</p>
+              </div>
+            )}
+            
+            {dataError && (
+              <div className="error-message">
+                <p>Error loading data: {dataError}</p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -191,11 +206,13 @@ const DepthModel = ({ onNavigate }) => {
           </div>
           <div className="timeseries-container">
             {selectedCell ? (
-              <div className="timeseries-placeholder">
-                <p>Time series chart will be displayed here</p>
-                <p>Showing risk over time for selected cell</p>
-                <p>Tolerance bands and minimum risk periods highlighted</p>
-              </div>
+              <RiskTimeSeries
+                selectedCell={selectedCell}
+                cellMaxDepths={cellMaxDepths}
+                filterState={filterState}
+                loadedData={loadedData}
+                tolerance={tolerance}
+              />
             ) : (
               <div className="timeseries-empty">
                 <p>Select a cell on the map to view risk over time</p>

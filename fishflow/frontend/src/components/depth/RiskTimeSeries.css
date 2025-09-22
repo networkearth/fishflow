@@ -1,0 +1,158 @@
+/* RiskTimeSeries.css */
+
+.time-series-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 1rem;
+}
+
+.no-cell-message,
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #6b7280;
+  text-align: center;
+}
+
+.no-data-message p {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.no-data-message ul {
+  text-align: left;
+  color: #9ca3af;
+  font-size: 0.8125rem;
+}
+
+.time-series-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.time-series-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.time-series-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.time-series-stats span {
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.chart-container {
+  flex: 1;
+  min-height: 300px;
+  position: relative;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.legend-line {
+  width: 20px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.legend-line.in-time {
+  background: #2563eb;
+}
+
+.legend-line.out-time {
+  background: #94a3b8;
+}
+
+.legend-line.tolerance {
+  background: #ef4444;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    #ef4444 2px,
+    #ef4444 4px
+  );
+}
+
+/* Custom tooltip styles */
+.custom-tooltip {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+}
+
+.tooltip-time {
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.tooltip-risk {
+  margin: 0 0 0.25rem 0;
+  color: #374151;
+}
+
+.tooltip-status {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .time-series-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .time-series-stats {
+    font-size: 0.8125rem;
+    gap: 0.5rem;
+  }
+  
+  .chart-legend {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  .time-series-container {
+    padding: 0.75rem;
+  }
+}

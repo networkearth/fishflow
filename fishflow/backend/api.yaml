@@ -207,10 +207,10 @@ paths:
                     example: 100
                   data:
                     type: object
-                    description: Occupancy probabilities organized by timepoint (hour) and cell
+                    description: Occupancy probabilities organized by cell and timestamp
                     required:
                       - timestamps
-                      - probabilities
+                      - cells
                     properties:
                       timestamps:
                         type: array
@@ -218,25 +218,21 @@ paths:
                         items:
                           type: string
                           format: date-time
-                        example: ["2024-03-01T00:00:00Z", "2024-03-01T01:00:00Z", "2024-03-01T02:00:00Z"]
-                      probabilities:
-                        type: array
-                        description: 2D array of probabilities [timestamp][cell]
-                        items:
+                        example: ["2024-01-01T00:00:00-09:00", "2024-01-01T01:00:00-09:00"]
+                      cells:
+                        type: object
+                        description: Cell data where keys are cell_ids and values are probability arrays
+                        additionalProperties:
                           type: array
                           items:
                             type: number
                             format: float
                             minimum: 0.0
                             maximum: 1.0
-                        example: [[0.1, 0.2, 0.0], [0.15, 0.25, 0.05], [0.12, 0.18, 0.02]]
-              example:
-                scenario_id: "chinook_goa_depth_2024"
-                month: "2024-01-01"
-                depth_bin: 100
-                data:
-                  timestamps: ["2024-03-01T00:00:00Z", "2024-03-01T01:00:00Z", "2024-03-01T02:00:00Z"]
-                  probabilities: [[0.1, 0.2, 0.0], [0.15, 0.25, 0.05]]
+                        example: 
+                          "0": [0.1, 0.15]
+                          "1": [0.2, 0.25]
+                          "5": [0.0, 0.05]
         '400':
           description: Bad request - invalid parameters
         '500':
@@ -267,6 +263,52 @@ paths:
           description: Scenario not found
         '500':
           description: Internal server error
+  /depth/scenario/{scenario_id}/cell-depths:
+    get:
+      summary: Get maximum depth for each cell in scenario
+      description: Returns an array of maximum depths indexed by cell_id for spatial filtering
+      operationId: getCellMaxDepths
+      tags:
+        - Depth Model
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          description: Unique identifier for the scenario
+          schema:
+            type: string
+          example: "chinook_goa_depth_2024"
+      responses:
+        '200':
+          description: Cell maximum depths retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - scenario_id
+                  - cell_max_depths
+                properties:
+                  scenario_id:
+                    type: string
+                    example: "chinook_goa_depth_2024"
+                  cell_max_depths:
+                    type: array
+                    description: Array where index is cell_id and value is maximum depth for that cell
+                    items:
+                      type: integer
+                      nullable: true
+                      description: Maximum depth in meters for this cell, or null if cell has no depth data
+                    example: [25, 50, 100, 75, 200, 50, 150, 300, 25, 500]
+              example:
+                scenario_id: "chinook_goa_depth_2024"
+                cell_max_depths: [25, 50, 100, 75, 200, 50, 150, 300, 25, 500]
+        '404':
+          description: Scenario not found
+        '500':
+          description: Internal server error
+
+  
 
 components:
   schemas:

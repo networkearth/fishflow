@@ -5,7 +5,7 @@ import ModelCard from '../ModelCard';
 const MovementModelCard = ({ onNavigate }) => {
   const cardConfig = {
     title: "Movement Model",
-    subtitle: "Migration pattern analysis",
+    subtitle: "Movement pattern analysis",
     icon: Map,
     colorScheme: "blue",
     features: [
@@ -16,15 +16,13 @@ const MovementModelCard = ({ onNavigate }) => {
       },
       {
         icon: Clock,
-        title: "Long-term Analysis",
-        description: "Monthly and seasonal migration patterns with lag-based risk assessment"
+        title: "Daily Resolution",
+        description: "Assess how risk moves over days"
       }
     ],
     keyFeatures: [
-      "Movement matrix visualization",
-      "Sliding time window analysis", 
-      "Migration route optimization",
-      "Historical pattern comparison"
+      "Spatial risk analysis",
+      "Daily resolution", 
     ],
     navigationTarget: "movement"
   };

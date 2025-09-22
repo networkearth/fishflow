@@ -1,4 +1,4 @@
-from typing import List, Union, Any
+from typing import List, Union, Any, Dict
 from pydantic import BaseModel
 from datetime import date
 
@@ -40,7 +40,7 @@ class DepthScenariosResponse(BaseModel):
 
 class OccupancyData(BaseModel):
     timestamps: List[str]
-    probabilities: List[List[float]]
+    cells: Dict[int, List[float]]
 
 
 class OccupancyResponse(BaseModel):
@@ -60,7 +60,7 @@ class OccupancyResponse(BaseModel):
                         "2024-01-01T00:00:00-09:00",
                         "2024-01-01T01:00:00-09:00",
                     ],
-                    "probabilities": [[0.1, 0.2, 0.0], [0.15, 0.25, 0.05]],
+                    "cells": {"0": [0.1, 0.15], "1": [0.2, 0.25], "5": [0.0, 0.05]},
                 },
             }
         }

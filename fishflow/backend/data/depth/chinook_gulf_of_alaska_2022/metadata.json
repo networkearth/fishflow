@@ -6,8 +6,8 @@
     "description": "Hourly depth occupancy for Chinook salmon in the Gulf of Alaska",
     "time_window": ["2022-01-01", "2022-12-31"],
     "depth_bins": [25, 50, 75, 100, 150, 200, 250, 300, 400, 500],
-    "grid_size": 233,
-    "map_center": [58.5, -152.0],
-    "map_zoom": 6,
+    "grid_size": 203,
+    "map_center": [60, -157],
+    "map_zoom": 4,
     "resolution": "hourly"
 }

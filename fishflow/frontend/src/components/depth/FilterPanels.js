@@ -13,7 +13,7 @@ const FilterPanels = ({
   timeOfDay = []
 }) => {
   // Track which panel is currently expanded
-  const [expandedPanel, setExpandedPanel] = useState('depth');
+  const [expandedPanel, setExpandedPanel] = useState(null);
 
   // Handle individual filter changes and bubble up to parent
   const handleDepthChange = (newDepthBins) => {
