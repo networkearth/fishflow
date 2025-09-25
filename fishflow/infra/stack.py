@@ -3,6 +3,9 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_cloudfront as cloudfront,
     aws_iam as iam,
+    aws_route53 as route53,
+    aws_certificatemanager as acm,
+    aws_route53_targets as targets,
     CfnOutput,
 )
 from constructs import Construct
@@ -42,10 +45,23 @@ class FishFlowReact(Stack):
             ),
         )
 
+        hosted_zone = route53.HostedZone.from_lookup(
+            self, "NetworkEarthZone", domain_name="networkearth.io"
+        )
+
+        certificate = acm.Certificate(
+            self,
+            "FishFlowCertificate",
+            domain_name="networkearth.io",
+            subject_alternative_names=["www.networkearth.io"],
+            validation=acm.CertificateValidation.from_dns(hosted_zone),
+        )
+
         distribution = cloudfront.CfnDistribution(
             self,
             "CFDistributionSPA",
             distribution_config=cloudfront.CfnDistribution.DistributionConfigProperty(
+                aliases=["networkearth.io", "www.networkearth.io"],
                 origins=[
                     cloudfront.CfnDistribution.OriginProperty(
                         domain_name=bucket.bucket_regional_domain_name,
@@ -80,7 +96,8 @@ class FishFlowReact(Stack):
                 ],
                 price_class="PriceClass_All",
                 viewer_certificate=cloudfront.CfnDistribution.ViewerCertificateProperty(
-                    cloud_front_default_certificate=True,
+                    acm_certificate_arn=certificate.certificate_arn,
+                    ssl_support_method="sni-only",
                     minimum_protocol_version="TLSv1.2_2021",
                 ),
             ),
@@ -99,4 +116,50 @@ class FishFlowReact(Stack):
                     }
                 },
             )
+        )
+
+        route53.CfnRecordSet(
+            self,
+            "AliasRecord",
+            hosted_zone_id=hosted_zone.hosted_zone_id,
+            name="networkearth.io",
+            type="A",
+            alias_target=route53.CfnRecordSet.AliasTargetProperty(
+                dns_name=distribution.attr_domain_name,
+                hosted_zone_id="Z2FDTNDATAQYW2",  # CloudFront's hosted zone ID (always this)
+            ),
+        )
+
+        # A record for www subdomain
+        route53.CfnRecordSet(
+            self,
+            "WWWAliasRecord",
+            hosted_zone_id=hosted_zone.hosted_zone_id,
+            name="www.networkearth.io",
+            type="A",
+            alias_target=route53.CfnRecordSet.AliasTargetProperty(
+                dns_name=distribution.attr_domain_name,
+                hosted_zone_id="Z2FDTNDATAQYW2",  # CloudFront's hosted zone ID (always this)
+            ),
+        )
+
+        CfnOutput(
+            self,
+            "HostedZoneId",
+            value=hosted_zone.hosted_zone_id,
+            description="Route 53 Hosted Zone ID",
+        )
+
+        CfnOutput(
+            self,
+            "CertificateArn",
+            value=certificate.certificate_arn,
+            description="SSL Certificate ARN",
+        )
+
+        CfnOutput(
+            self,
+            "CustomDomainURL",
+            value="https://networkearth.io",
+            description="Custom domain URL",
         )
