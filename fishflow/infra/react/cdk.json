@@ -1,0 +1,9 @@
+{
+    "app": "python app.py",
+    "context": {
+        "config": {
+            "account": "575101084097",
+            "region": "us-east-1"
+        }
+    }
+}

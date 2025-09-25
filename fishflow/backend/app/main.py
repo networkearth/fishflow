@@ -10,8 +10,8 @@ from app.movement_models import (
     MovementMatrices,
 )
 from app.depth_models import DepthScenariosResponse, OccupancyResponse
-from app.movement_data_loader import movement_data_loader
-from app.depth_data_loader import depth_data_loader
+from app.movement_data_loader import S3MovementDataLoader
+from app.depth_data_loader import S3DepthDataLoader
 
 
 app = FastAPI(
@@ -30,6 +30,8 @@ app.add_middleware(
 )
 
 ## --- MOVEMENT MODEL --- ##
+
+movement_data_loader = S3MovementDataLoader(bucket_name="fish-flow-data-bucket")
 
 
 @app.get("/v1/movement/scenarios", response_model=MovementScenariosResponse)
@@ -135,6 +137,8 @@ async def get_movement_matrices(
 
 
 ## -- DEPTH MODEL -- ##
+
+depth_data_loader = S3DepthDataLoader(bucket_name="fish-flow-data-bucket")
 
 
 @app.get("/v1/depth/scenarios", response_model=DepthScenariosResponse)

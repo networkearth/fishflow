@@ -1,4 +1,6 @@
 import json
+import boto3
+from io import BytesIO
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime, date, timedelta
@@ -13,38 +15,77 @@ from app.movement_models import (
 )
 
 
-class DepthDataLoader:
-    def __init__(self, data_dir: str = "data/depth"):
-        self.data_dir = Path(data_dir)
+class S3DepthDataLoader:
+    def __init__(self, bucket_name: str, data_prefix: str = "depth"):
+        self.bucket_name = bucket_name
+        self.data_prefix = data_prefix
+        self.s3_client = boto3.client("s3")
         self._load_scenarios()
 
+    def _list_s3_objects(self, prefix: str):
+        """List objects in S3 with given prefix"""
+        try:
+            response = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name, Prefix=prefix
+            )
+            return response.get("Contents", [])
+        except Exception as e:
+            print(f"Error listing S3 objects with prefix {prefix}: {e}")
+            return []
+
+    def _read_s3_json(self, key: str):
+        """Read and parse JSON file from S3"""
+        try:
+            response = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
+            content = response["Body"].read()
+            return json.loads(content)
+        except Exception as e:
+            print(f"Error reading JSON from S3 key {key}: {e}")
+            return None
+
+    def _read_s3_parquet(self, key: str):
+        """Read parquet file from S3"""
+        try:
+            response = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
+            content = response["Body"].read()
+            return pd.read_parquet(BytesIO(content))
+        except Exception as e:
+            print(f"Error reading parquet from S3 key {key}: {e}")
+            return None
+
     def _load_scenarios(self):
-        """Load all scenario metadata from directory structure"""
+        """Load all scenario metadata from S3"""
         self.scenarios = []
 
-        if not self.data_dir.exists():
-            print(f"Warning: Data directory {self.data_dir} does not exist")
-            return
+        # List all objects with depth prefix to find scenario directories
+        objects = self._list_s3_objects(f"{self.data_prefix}/")
 
-        for scenario_dir in self.data_dir.iterdir():
-            if scenario_dir.is_dir():
-                metadata_file = scenario_dir / "metadata.json"
-                if metadata_file.exists():
-                    try:
-                        with open(metadata_file, "r") as f:
-                            metadata = json.load(f)
+        # Extract unique scenario IDs from object keys
+        scenario_ids = set()
+        for obj in objects:
+            key_parts = obj["Key"].split("/")
+            if len(key_parts) >= 3:  # depth/scenario_id/file
+                scenario_id = key_parts[1]
+                scenario_ids.add(scenario_id)
 
-                        # Convert date strings to date objects
-                        metadata["time_window"] = [
-                            datetime.strptime(d, "%Y-%m-%d").date()
-                            for d in metadata["time_window"]
-                        ]
+        # Load metadata for each scenario
+        for scenario_id in scenario_ids:
+            metadata_key = f"{self.data_prefix}/{scenario_id}/metadata.json"
+            metadata = self._read_s3_json(metadata_key)
 
-                        scenario = DepthScenarioSummary(**metadata)
-                        self.scenarios.append(scenario)
-                        print(f"Loaded scenario: {scenario.scenario_id}")
-                    except Exception as e:
-                        print(f"Error loading scenario from {scenario_dir}: {e}")
+            if metadata:
+                try:
+                    # Convert date strings to date objects
+                    metadata["time_window"] = [
+                        datetime.strptime(d, "%Y-%m-%d").date()
+                        for d in metadata["time_window"]
+                    ]
+
+                    scenario = DepthScenarioSummary(**metadata)
+                    self.scenarios.append(scenario)
+                    print(f"Loaded scenario: {scenario.scenario_id}")
+                except Exception as e:
+                    print(f"Error loading scenario {scenario_id}: {e}")
 
     def get_scenarios(self) -> List[DepthScenarioSummary]:
         """Get all available scenarios"""
@@ -58,24 +99,15 @@ class DepthDataLoader:
         return None
 
     def get_geometries(self, scenario_id: str) -> Optional[GridGeometries]:
-        """Load geometries for a scenario"""
+        """Load geometries for a scenario from S3"""
         scenario = self.get_scenario_by_id(scenario_id)
         if not scenario:
             return None
 
-        geometries_file = self.data_dir / scenario_id / "geometries.geojson"
-        if not geometries_file.exists():
-            print(f"Geometries file not found: {geometries_file}")
-            return None
+        geometries_key = f"{self.data_prefix}/{scenario_id}/geometries.geojson"
+        geojson_data = self._read_s3_json(geometries_key)
 
-        try:
-            with open(geometries_file, "r") as f:
-                geojson_data = json.load(f)
-        except json.JSONDecodeError as e:
-            print(f"Invalid JSON in geometries file for {scenario_id}: {e}")
-            return None
-        except IOError as e:
-            print(f"Error reading geometries file for {scenario_id}: {e}")
+        if not geojson_data:
             return None
 
         try:
@@ -133,7 +165,7 @@ class DepthDataLoader:
     def get_occupancy_data(
         self, scenario_id: str, month: str, depth_bin: int
     ) -> Optional[dict]:
-        """Load occupancy data for a specific scenario, month, and depth bin"""
+        """Load occupancy data for a specific scenario, month, and depth bin from S3"""
         scenario = self.get_scenario_by_id(scenario_id)
         if not scenario:
             return None
@@ -146,16 +178,14 @@ class DepthDataLoader:
             print(f"Invalid month format: {month}. Expected YYYY-MM-DD")
             return None
 
-        # Construct file path
-        parquet_file = self.data_dir / scenario_id / f"{month_str}.parquet.gz"
-        if not parquet_file.exists():
-            print(f"Occupancy data file not found: {parquet_file}")
+        # Construct S3 key
+        parquet_key = f"{self.data_prefix}/{scenario_id}/{month_str}.parquet.gz"
+        df = self._read_s3_parquet(parquet_key)
+
+        if df is None:
             return None
 
         try:
-            # Load parquet file
-            df = pd.read_parquet(parquet_file)
-
             # Filter by depth bin
             df_filtered = df[df["depth_bin"] == depth_bin].copy()
 
@@ -190,26 +220,24 @@ class DepthDataLoader:
 
         except Exception as e:
             print(
-                f"Error loading occupancy data for {scenario_id}, {month_str}, depth {depth_bin}: {e}"
+                f"Error processing occupancy data for {scenario_id}, {month_str}, depth {depth_bin}: {e}"
             )
             return None
 
     def get_cell_max_depths(self, scenario_id: str) -> Optional[dict]:
-        """Load cell maximum depths for a scenario"""
+        """Load cell maximum depths for a scenario from S3"""
         scenario = self.get_scenario_by_id(scenario_id)
         if not scenario:
             return None
 
-        # Construct file path
-        cell_depths_file = self.data_dir / scenario_id / "cell_depths.json"
-        if not cell_depths_file.exists():
-            print(f"Cell depths file not found: {cell_depths_file}")
+        # Construct S3 key
+        cell_depths_key = f"{self.data_prefix}/{scenario_id}/cell_depths.json"
+        cell_depths_data = self._read_s3_json(cell_depths_key)
+
+        if not cell_depths_data:
             return None
 
         try:
-            with open(cell_depths_file, "r") as f:
-                cell_depths_data = json.load(f)
-
             # Validate that it's a list/array
             if not isinstance(cell_depths_data, list):
                 print(
@@ -219,15 +247,6 @@ class DepthDataLoader:
 
             return {"scenario_id": scenario_id, "cell_max_depths": cell_depths_data}
 
-        except json.JSONDecodeError as e:
-            print(f"Invalid JSON in cell depths file for {scenario_id}: {e}")
-            return None
-        except IOError as e:
-            print(f"Error reading cell depths file for {scenario_id}: {e}")
-            return None
         except Exception as e:
-            print(f"Unexpected error loading cell depths for {scenario_id}: {e}")
+            print(f"Unexpected error processing cell depths for {scenario_id}: {e}")
             return None
-
-
-depth_data_loader = DepthDataLoader()
