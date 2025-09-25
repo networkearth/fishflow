@@ -5,6 +5,11 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_iam as iam,
     aws_logs as logs,
+    aws_elasticloadbalancingv2 as elbv2,
+    aws_route53 as route53,
+    aws_route53_targets as targets,
+    aws_certificatemanager as acm,
+    Duration,
     CfnOutput,
 )
 from constructs import Construct
@@ -110,6 +115,61 @@ class FishFlowApiStack(Stack):
             security_groups=[security_group],
         )
 
+        hosted_zone = route53.HostedZone.from_lookup(
+            self, "NetworkEarthZone", domain_name="networkearth.io"
+        )
+
+        api_certificate = acm.Certificate(
+            self,
+            "ApiCertificate",
+            domain_name="api.networkearth.io",
+            validation=acm.CertificateValidation.from_dns(hosted_zone),
+        )
+
+        load_balancer = elbv2.ApplicationLoadBalancer(
+            self,
+            "ApiLoadBalancer",
+            vpc=vpc,
+            internet_facing=True,
+        )
+
+        target_group = elbv2.ApplicationTargetGroup(
+            self,
+            "ApiTargetGroup",
+            port=8000,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            target_type=elbv2.TargetType.IP,
+            vpc=vpc,
+            health_check=elbv2.HealthCheck(path="/", healthy_http_codes="200"),
+        )
+
+        load_balancer.add_listener(
+            "HttpsListener",
+            port=443,
+            protocol=elbv2.ApplicationProtocol.HTTPS,
+            certificates=[api_certificate],
+            default_target_groups=[target_group],
+        )
+
+        load_balancer.add_listener(
+            "HttpListener",
+            port=80,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            default_action=elbv2.ListenerAction.redirect(protocol="HTTPS", port="443"),
+        )
+
+        service.attach_to_application_target_group(target_group)
+
+        route53.ARecord(
+            self,
+            "ApiAliasRecord",
+            zone=hosted_zone,
+            record_name="api",
+            target=route53.RecordTarget.from_alias(
+                targets.LoadBalancerTarget(load_balancer)
+            ),
+        )
+
         # Outputs
         CfnOutput(
             self,
@@ -130,4 +190,11 @@ class FishFlowApiStack(Stack):
             "ServiceName",
             value=service.service_name,
             description="Name of the ECS service",
+        )
+
+        CfnOutput(
+            self,
+            "ApiUrl",
+            value="https://api.networkearth.io",
+            description="API endpoint URL",
         )
