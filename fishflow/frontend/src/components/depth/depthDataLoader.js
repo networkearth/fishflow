@@ -97,7 +97,7 @@ const getMissingChunks = (scenarioId, months, depthBins, loadedChunks) => {
 const loadDataChunk = async (scenarioId, month, depth) => {
   try {
     const response = await fetch(
-      `http://localhost:8000/v1/depth/scenario/${scenarioId}/occupancy?month=${month}-01&depth_bin=${depth}`
+      `https://api.networkearth.io/v1/depth/scenario/${scenarioId}/occupancy?month=${month}-01&depth_bin=${depth}`
     );
     
     if (!response.ok) {

@@ -106,8 +106,8 @@ const handleScenarioChange = async (scenario) => {
     console.log(`Loading geometries and cell depths for scenario: ${scenario.scenario_id}`);
     
     const [geometryResponse, cellDepthsResponse] = await Promise.all([
-      fetch(`http://localhost:8000/v1/depth/scenario/${scenario.scenario_id}/geometries`),
-      fetch(`http://localhost:8000/v1/depth/scenario/${scenario.scenario_id}/cell-depths`)
+      fetch(`https://api.networkearth.io/v1/depth/scenario/${scenario.scenario_id}/geometries`),
+      fetch(`https://api.networkearth.io/v1/depth/scenario/${scenario.scenario_id}/cell-depths`)
     ]);
     
     if (!geometryResponse.ok) {

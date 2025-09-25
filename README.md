@@ -18,6 +18,7 @@ https://github.com/aws-samples/react-cors-spa/blob/main/react-cors-spa-stack.yam
 
 npm run build
 aws s3 sync build/ s3://fish-flow-react-bucket/ --delete
+Then run an invalidation
 
 aws s3 sync depth/ s3://fish-flow-data-bucket/depth/
 aws s3 sync movement/ s3://fish-flow-data-bucket/movement/

@@ -11,7 +11,7 @@ function DepthScenarioSelector({ onScenarioLoad, currentScenario }) {
   useEffect(() => {
     const fetchScenarios = async () => {
       try {
-        const response = await fetch('http://localhost:8000/v1/depth/scenarios');
+        const response = await fetch('https://api.networkearth.io/v1/depth/scenarios');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

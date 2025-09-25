@@ -11,7 +11,7 @@ function ScenarioSidebar({ onScenarioLoad, currentScenario }) {
   useEffect(() => {
     const fetchScenarios = async () => {
       try {
-        const response = await fetch('http://localhost:8000/v1/movement/scenarios');
+        const response = await fetch('https://api.networkearth.io/v1/movement/scenarios');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
